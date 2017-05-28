@@ -11,7 +11,7 @@ public class HazWordz {
 
 		while (true) {
 			System.out.print("Please input the characters: ");
-			String input = sc.next();// .toLowerCase();
+			String input = sc.next().toLowerCase();
 			if (input.equals("quit"))
 				break;
 
