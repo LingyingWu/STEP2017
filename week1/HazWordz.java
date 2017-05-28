@@ -7,13 +7,20 @@ public class HazWordz {
 
 		// receive input
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Please input the characters: ");
-		String input = sc.next().toLowerCase();
-
 		DictionaryNaive dict = new DictionaryNaive();
-		String[] candidate = dict.searchDict(input).split(" ");
 
-		System.out.println("Best result: " + findBest(candidate));
+		while (true) {
+			System.out.print("Please input the characters: ");
+			String input = sc.next();// .toLowerCase();
+			if (input.equals("quit"))
+				break;
+
+			String[] candidate = dict.searchDict(input).split(" ");
+
+			System.out.println("Best result: " + findBest(candidate));
+			System.out.println("Enter quit to exit the program.");
+			System.out.println();
+		}
 
 		sc.close();
 	}
