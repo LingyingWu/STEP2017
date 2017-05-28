@@ -42,6 +42,7 @@ public class DictionaryNaive {
 			if (dictionary.containsKey(str))
 				result += dictionary.get(str) + " ";
 		}
+		combination.clear();
 		return result;
 	}
 
