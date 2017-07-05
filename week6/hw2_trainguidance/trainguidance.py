@@ -142,7 +142,7 @@ class RoutePlanner(webapp2.RequestHandler):
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
 		for line in intersection_line:
-			self.response.write('<p style="color:orange">[ %s: ' % self.get_whole_line(line)['Name'])
+			self.response.write('<b style="color:orange">[ %s: ' % self.get_whole_line(line)['Name'])
 			start_index = self.get_index(start, self.get_whole_line(line)['Stations'])
 			end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
 			if start_index < end_index:
@@ -156,15 +156,15 @@ class RoutePlanner(webapp2.RequestHandler):
 					self.response.write('down ]')
 			else:
 				if (start_index-end_index) > (self.get_station_num(line)/2):
-					route = self.get_whole_line(line)['Stations'][end_index:]
-					route.append(self.get_whole_line(line)['Stations'][1:start_index+1])
-					self.response.write('down me]')
+					route = self.get_whole_line(line)['Stations'][start_index:]
+					route.append(self.get_whole_line(line)['Stations'][1:end_index+1])
+					self.response.write('down ]')
 				else:
 					route = self.get_whole_line(line)['Stations'][end_index:start_index+1]
 					route.reverse()
 					self.response.write('up ]')
 
-			self.response.write('</p>')
+			self.response.write('</b><br>')
 			for station in route:
 				self.response.write('>> %s<br>' % station)
 
