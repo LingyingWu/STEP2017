@@ -12,21 +12,21 @@ class MainPage(webapp2.RequestHandler):
 		#self.response.out.write(file)
 		self.response.write('<title>Train Guidance</title>')
 		self.response.write('<body><form action="/search-result"><h1>Train Guidance</h1>')
-		self.response.write('<h3>From :</h3><select name="from">')
+		self.response.write('<h3>From :<select name="from">')
 		for dictionary in data:
 			self.response.write('<option disabled>-------------</option>')
 			self.response.write('<option disabled>%s</option>' % dictionary['Name'])
 			for station in dictionary['Stations']:
 				self.response.write('<option>%s</option>' % station)
-		self.response.write('</select><br>')
+		self.response.write('</select></h3><br>')
 
-		self.response.write('<h3>To :</h3><select name="to">')
+		self.response.write('<h3>To :<select name="to">')
 		for dictionary in data:
 			self.response.write('<option disabled>-------------</option>')
 			self.response.write('<option disabled>%s</option>' % dictionary['Name'])
 			for station in dictionary['Stations']:
 				self.response.write('<option>%s</option>' % station)
-		self.response.write('</select><br><br><input type=submit value="  Search Route  ">')
+		self.response.write('</select></h3><br><br><input type=submit value="  Search Route  ">')
 		self.response.write('</body>')
 
 
@@ -52,7 +52,7 @@ class RoutePlanner(webapp2.RequestHandler):
 
 	def print_result(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
-		self.response.write('<br><b>Depart from: </b><b style="color:orange">%s</b>' % start)
+		self.response.write('<br><b>Depart from: </b><b style="color:orange">%s</b><br>' % start)
 		self.print_route(start, end)
 		self.response.write('<br><b>Arrive at: </b><b style="color:orange">%s</b>' % end)
 
@@ -68,14 +68,7 @@ class RoutePlanner(webapp2.RequestHandler):
 				route.reverse()
 
 			for station in route:
-				lines = self.get_line(station)
-				if len(lines) > 1:
-					self.response.write('>> [')
-					for name in lines:
-						self.response.write('%s/' % name)
-					self.response.write('] %s<br>' % station)
-				else:
-					self.response.write('>> [%s] %s<br>' % (self.get_line(station), station))
+				self.response.write('>> %s<br>' % (station))
 
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
