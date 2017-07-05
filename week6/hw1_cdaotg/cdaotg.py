@@ -25,7 +25,7 @@ class MainPage(webapp2.RequestHandler):
 			self.response.write('<b style="color:orange;">%s</b>' % b[len_a:len_b])
 		else:
 			for i in range(len_b):
-				self.range.write('<b style="color:cornflowerblue;">%s</b><b style="color:orange;">%s</b>' % (a[i],b[i]))
+				self.response.write('<b style="color:cornflowerblue;">%s</b><b style="color:orange;">%s</b>' % (a[i],b[i]))
 			self.response.write('<b style="color:cornflowerblue;">%s</b>' % a[len_b:len_a])
 		self.response.write('</h2></body>')
 
