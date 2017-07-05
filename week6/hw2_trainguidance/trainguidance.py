@@ -118,7 +118,7 @@ class RoutePlanner(webapp2.RequestHandler):
 			self.response.write('<br><b>Recommend to take </b><br>')
 			for line in rec_line:
 				self.response.write('>> %s <br>' % line)
-			self.response.write('<br><hr>Transfer %d time(s).' %count)
+			self.response.write('<br><hr>Need to transfer %d time(s).' %count)
 
 		return rec_line
 
@@ -174,6 +174,8 @@ class RoutePlanner(webapp2.RequestHandler):
 			route.append(end)
 			for i in range(0, len(route)-1):
 				self.print_route(route[i], route[i+1])
+				if i != len(route)-1:
+					self.response.write('<b style="color:orange">Tranfer </b>')
 
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
