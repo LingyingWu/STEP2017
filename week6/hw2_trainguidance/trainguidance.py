@@ -151,7 +151,7 @@ class RoutePlanner(webapp2.RequestHandler):
 		start = self.request.get("from")
 		end = self.request.get("to")
 
-		if check_same_line:
+		if self.check_same_line(start, end):
 			self.print_result(start, end)
 		self.transfer(start, end)
 		self.response.write('</body>')		
