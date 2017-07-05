@@ -75,7 +75,7 @@ class RoutePlanner(webapp2.RequestHandler):
 						self.response.write('%s/' % name)
 					self.response.write('] %s<br>' % station)
 				else:
-					self.response.write('>> [%s] %s<br>' % (line_string, station))
+					self.response.write('>> [%s] %s<br>' % (self.get_line(station), station))
 
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
