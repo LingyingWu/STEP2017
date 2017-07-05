@@ -83,8 +83,7 @@ class RoutePlanner(webapp2.RequestHandler):
 
 	def transferable_line(self, line): # return set of lines can be transferred through the given line
 		line_set = set()
-		line_dict = self.get_whole_line(line)
-		for station in line_dict['Stations']:
+		for station in self.get_whole_line(line)['Stations']:
 			for line in self.get_line(station):
 				line_set.add(line)
 		return line_set
@@ -104,12 +103,15 @@ class RoutePlanner(webapp2.RequestHandler):
 			current_lines = next_lines
 			count += 1
 
+		last_line = ''
 		for line in (end_lines & current_lines):
-			rec_line.append(line)
+			last_line = line
+		rec_line.append(last_line)
 
 		for line_set in route_line[::-1]:
-			for line in (line_set & self.transferable_line(end_lines)):
-				rec_line.append(line)
+			for line in (line_set & self.transferable_line(last_line)):
+				last_line = line
+			rec_line.append(line)
 
 		candidate.reverse()
 		if count != 0:
