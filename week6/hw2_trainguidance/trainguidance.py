@@ -163,12 +163,12 @@ class RoutePlanner(webapp2.RequestHandler):
 			transfer_station[(next_line[index-1], next_line[index])] = transfer
 			route.append(transfer[0])
 		if len(transfer_station) != 0:
-			self.response.write('<b>At</b>')
+			self.response.write('<br><b>Transfer Stations(s): </b>')
 			for station in route:
 				self.response.write('<b style="color:chocolate"> %s </b>'% station)
 				if station != route[len(route)-1]:
 					self.response.write('<b>and</b>')
-			self.response.write('station(s).<hr><br>')
+			self.response.write('<hr><br>')
 
 			route.insert(0, start)
 			route.append(end)
