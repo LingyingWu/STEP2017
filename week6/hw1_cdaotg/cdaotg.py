@@ -11,9 +11,9 @@ class MainPage(webapp2.RequestHandler):
 		self.response.write('<input type = submit></form><hr>')
 
 		len_a = len(self.request.get("a"))
-		len_b = len(self.reqeust.get("b"))
-		a = self.reqeust.get("a")
-		b = self.reqeust.get("b")
+		len_b = len(self.request.get("b"))
+		a = self.request.get("a")
+		b = self.request.get("b")
 		
 		self.response.write('<h2>Output: ')
 		if len_a == len_b:
