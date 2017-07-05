@@ -68,8 +68,14 @@ class RoutePlanner(webapp2.RequestHandler):
 				route.reverse()
 
 			for station in route:
-				line_string = '/'.join([str(i).encode('utf-8') for i in self.get_line(start)])
-				self.response.write('>> [%s] %s<br>' % (line_string, station))
+				lines = self.get_line(station)
+				if len(lines) > 1:
+					self.response.write('[')
+					for name in lines:
+						self.response.write('%s/' % name)
+					self.response.write('] %s<br>' % station)
+				else:
+					self.response.write('>> [%s] %s<br>' % (line_string, station))
 
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
