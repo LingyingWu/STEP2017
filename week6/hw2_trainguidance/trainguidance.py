@@ -118,7 +118,7 @@ class RoutePlanner(webapp2.RequestHandler):
 			self.response.write('<br><b>Recommend to take </b><br>')
 			for line in rec_line:
 				self.response.write('>> %s <br>' % line)
-			self.response.write('<br><hr><b style="color:chocolate">Transfer %d time(s).</b><hr><br>' %count)
+			self.response.write('<br><hr><b>Transfer %d time(s).</b>' %count)
 
 		return rec_line
 
@@ -163,9 +163,12 @@ class RoutePlanner(webapp2.RequestHandler):
 			transfer_station[(next_line[index-1], next_line[index])] = transfer
 			route.append(transfer[0])
 		if len(transfer_station) != 0:
-			self.response.write('<b>Need transfer at: </b><br>')
+			self.response.write('<b>At</b>')
 			for station in route:
-				self.response.write('>> %s<br> '% station)
+				self.response.write('<b style="color:chocolate"> %s </b>'% station)
+				if station != route[len(route)-1]:
+					self.response.write('<b>and</b>')
+			self.response.write('station(s).<hr><br>')
 
 			route.insert(0, start)
 			route.append(end)
