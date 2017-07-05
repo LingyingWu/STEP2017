@@ -113,14 +113,14 @@ class RoutePlanner(webapp2.RequestHandler):
 				last_line = line
 			rec_line.append(line)
 
-		candidate.reverse()
+		rec_line.reverse()
 		if count != 0:
 			self.response.write('<h4> Recommend to take </h4>')
 			for line in rec_line:
 				self.response.write('>> %s' % line)
 			self.response.write('<h4> (transfer %d times)</h4><br>' % count)
 
-		return candidate
+		return rec_line
 
 	def plan(self, start, end):
 		next_line = self.recommend_line(start, end)
