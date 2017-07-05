@@ -122,25 +122,6 @@ class RoutePlanner(webapp2.RequestHandler):
 
 		return rec_line
 
-	def plan(self, start, end):
-		next_line = self.recommend_line(start, end)
-		route = []
-		transfer_station = {}
-
-		for index in range(1, len(next_line)):
-			transfer = self.get_intersection_station(next_line[index-1], next_line[index])
-			transfer_station[(next_line[index-1], next_line[index])] = transfer
-			route.append(transfer[0])
-		if len(transfer_station) != 0:
-			self.response.write('<b>Need transfer at: </b><br>')
-			for station in route:
-				self.response.write('>> %s<br> '% station)
-
-			route.insert(0, start)
-			route.append(end)
-			for i in range(0, len(route)-1):
-				print_route(route[i], route[i+1])
-
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
 		for line in intersection_line:
@@ -171,6 +152,25 @@ class RoutePlanner(webapp2.RequestHandler):
 			self.response.write('</b><br>')
 			for station in route:
 				self.response.write('>> %s<br>' % station)
+
+	def plan(self, start, end):
+		next_line = self.recommend_line(start, end)
+		route = []
+		transfer_station = {}
+
+		for index in range(1, len(next_line)):
+			transfer = self.get_intersection_station(next_line[index-1], next_line[index])
+			transfer_station[(next_line[index-1], next_line[index])] = transfer
+			route.append(transfer[0])
+		if len(transfer_station) != 0:
+			self.response.write('<b>Need transfer at: </b><br>')
+			for station in route:
+				self.response.write('>> %s<br> '% station)
+
+			route.insert(0, start)
+			route.append(end)
+			for i in range(0, len(route)-1):
+				print_route(route[i], route[i+1])
 
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
