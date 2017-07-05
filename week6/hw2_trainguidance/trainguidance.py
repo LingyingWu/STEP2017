@@ -177,7 +177,7 @@ class RoutePlanner(webapp2.RequestHandler):
 		self.response.write('<b>From: </b><b style="color:cornflowerblue">%s</b><br>' % start)
 		self.response.write('<b>To: </b><b style="color:cornflowerblue">%s</b><br>' % end)
 		if self.check_same_line(start, end):
-			self.response.write('<br><hr><b style="color:cholocate">No need to transfer.</b><hr>')
+			self.response.write('<br><hr><b style="color:chocolate">No need to transfer.</b><hr>')
 			self.print_route(start, end)
 		else:
 			self.plan(start, end)
