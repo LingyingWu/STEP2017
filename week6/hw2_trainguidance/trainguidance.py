@@ -138,9 +138,7 @@ class RoutePlanner(webapp2.RequestHandler):
 
 	def print_result(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
-		self.response.write('<br><b>From: </b><b style="color:cornflowerblue">%s</b><br>' % start)
 		self.print_route(start, end)
-		self.response.write('<br><b>To: </b><b style="color:cornflowerblue">%s</b>' % end)
 
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
@@ -180,10 +178,12 @@ class RoutePlanner(webapp2.RequestHandler):
 		start = self.request.get("from")
 		end = self.request.get("to")
 
+		self.response.write('<br><b>From: </b><b style="color:cornflowerblue">%s</b><br>' % start)
 		if self.check_same_line(start, end):
 			self.print_result(start, end)
 		else:
 			self.plan(start, end)
+		self.response.write('<br><b>To: </b><b style="color:cornflowerblue">%s</b>' % end)
 		self.response.write('</body>')		
 
 
