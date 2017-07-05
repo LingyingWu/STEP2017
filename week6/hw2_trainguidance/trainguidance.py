@@ -129,7 +129,7 @@ class RoutePlanner(webapp2.RequestHandler):
 
 		for index in range(1, len(next_line)):
 			transfer = self.get_intersection_station(next_line[index-1], next_line[index])
-			transfer_candidate[(next_line[index-1], next_line[index])] = transfer
+			transfer_station[(next_line[index-1], next_line[index])] = transfer
 			route.append(transfer[0])
 		if len(transfer_station) != 0:
 			self.response.write('<h3>Need transfer: </h3>')
