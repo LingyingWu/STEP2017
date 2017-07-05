@@ -15,17 +15,17 @@ class MainPage(webapp2.RequestHandler):
 		self.response.write('From :<select name="from">')
 		for dictionary in data:
 			self.response.write('<option disabled>-------------</option>')
-			self.response.write('<option disabled>%s</option>' % dictionary['Name'])
+			self.response.write('<option disabled>%s</option>' % dictionary['Name'].encode('utf-8'))
 			for station in dictionary['Stations']:
-				self.response.write('<option>%s</option>' % station)
+				self.response.write('<option>%s</option>' % station.encode('utf-8'))
 		self.response.write('</select><br>')
 
 		self.response.write('To :<select name="to">')
 		for dictionary in data:
 			self.response.write('<option disabled>-------------</option>')
-			self.response.write('<option disabled>%s</option>' % dictionary['Name'])
+			self.response.write('<option disabled>%s</option>' % dictionary['Name'].encode('utf-8'))
 			for station in dictionary['Stations']:
-				self.response.write('<option>%s</option>' % station)
+				self.response.write('<option>%s</option>' % station.encode('utf-8'))
 		self.response.write('</select><br><br><input type=submit value="  Search Route  ">')
 		self.response.write('</body>')
 
@@ -52,9 +52,9 @@ class RoutePlanner(webapp2.RequestHandler):
 
 	def print_result(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
-		self.response.write('<br><b>Depart from: </b><b style="color:orange">%s</b>' % start)
+		self.response.write('<br><b>Depart from: </b><b style="color:orange">%s</b>' % start.encode('utf-8'))
 		self.print_route(start, end)
-		self.response.write('<br><b>Arrive at: </b><b style="color:orange">%s</b>' % end)
+		self.response.write('<br><b>Arrive at: </b><b style="color:orange">%s</b>' % end.encode('utf-8'))
 
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
@@ -69,7 +69,7 @@ class RoutePlanner(webapp2.RequestHandler):
 
 			for station in route:
 				line_string = '/'.join([str(i) for i in self.get_line(start)])
-				self.response.write('>> [%s] %s<br>' % (line_string, station))
+				self.response.write('>> [%s] %s<br>' % (line_string.encode('utf-8'), station.encode('utf-8')))
 
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
