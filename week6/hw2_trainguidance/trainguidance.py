@@ -11,8 +11,8 @@ class MainPage(webapp2.RequestHandler):
 		#file = open('input.html').read()
 		#self.response.out.write(file)
 		self.response.write('<title>Train Guidance</title>')
-		self.response.write('<body><form action="/guidance"><h1>Train Guidance</h1>')
-		self.response.write('From :<select name="from">')
+		self.response.write('<body><form action="/search-result"><h1>Train Guidance</h1>')
+		self.response.write('<h3>From :</h3><select name="from">')
 		for dictionary in data:
 			self.response.write('<option disabled>-------------</option>')
 			self.response.write('<option disabled>%s</option>' % dictionary['Name'])
@@ -20,7 +20,7 @@ class MainPage(webapp2.RequestHandler):
 				self.response.write('<option>%s</option>' % station)
 		self.response.write('</select><br>')
 
-		self.response.write('To :<select name="to">')
+		self.response.write('<h3>To :</h3><select name="to">')
 		for dictionary in data:
 			self.response.write('<option disabled>-------------</option>')
 			self.response.write('<option disabled>%s</option>' % dictionary['Name'])
@@ -70,7 +70,7 @@ class RoutePlanner(webapp2.RequestHandler):
 			for station in route:
 				lines = self.get_line(station)
 				if len(lines) > 1:
-					self.response.write('[')
+					self.response.write('>> [')
 					for name in lines:
 						self.response.write('%s/' % name)
 					self.response.write('] %s<br>' % station)
@@ -90,5 +90,5 @@ class RoutePlanner(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
 	('/', MainPage),
-	('/guidance', RoutePlanner)
+	('/search-result', RoutePlanner)
 ], debug = True)
