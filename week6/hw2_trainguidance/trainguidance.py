@@ -115,10 +115,10 @@ class RoutePlanner(webapp2.RequestHandler):
 
 		rec_line.reverse()
 		if count != 0:
-			self.response.write('<h4> Recommend to take </h4>')
+			self.response.write('<b> Recommend to take </b>')
 			for line in rec_line:
-				self.response.write('>> %s' % line)
-			self.response.write('<h4> (transfer %d times)</h4><br>' % count)
+				self.response.write('>> %s <br>' % line)
+			self.response.write('<b style="color:purple"> (transfer %d times)</b><br>' % count)
 
 		return rec_line
 
