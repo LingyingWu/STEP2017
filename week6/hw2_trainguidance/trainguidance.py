@@ -135,9 +135,11 @@ class RoutePlanner(webapp2.RequestHandler):
 			self.response.write('<b>Need transfer at: </b><br>')
 			for station in route:
 				self.response.write('>> %s<br> '% station)
-			for i in range(len(route)-1):
+
+			route.insert(0, start)
+			route.append(end)
+			for i in range(0, len(route)-1):
 				print_route(route[i], route[i+1])
-				self.response.write('<br>here<br>')
 
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
