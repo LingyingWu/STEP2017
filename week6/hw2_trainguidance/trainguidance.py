@@ -51,7 +51,7 @@ class RoutePlanner(webapp2.RequestHandler):
 				return index
 
 	def get_station_num(self, line):
-		n = len(self.get_whole_line(line)['Stations'])
+		return len(self.get_whole_line(line)['Stations'])
 
 	def check_same_line(self, start, end): # check if the two stations are in the same line
 		start_line = self.get_line(start)
