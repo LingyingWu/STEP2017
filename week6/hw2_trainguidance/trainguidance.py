@@ -148,7 +148,10 @@ class RoutePlanner(webapp2.RequestHandler):
 
 			self.response.write('</b><br>')
 			for station in route:
-				self.response.write('>> %s<br>' % station)
+				if station == (route[0] or route[len(route)-1]):
+					self.response.write('>> <b>%s<b><br>' % station)
+				else:
+					self.response.write('>> %s<br>' % station)
 
 	def plan(self, start, end):
 		next_line = self.recommend_line(start, end)
