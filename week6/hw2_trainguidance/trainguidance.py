@@ -12,7 +12,7 @@ class MainPage(webapp2.RequestHandler):
 		#self.response.out.write(file)
 		self.response.write('<title>Train Guidance</title>')
 		self.response.write('<body><form action="/search-result"><h1>Train Guidance</h1>')
-		self.response.write('<h3>From :<select name="from">')
+		self.response.write('<h3>From : <select name="from">')
 		for dictionary in data:
 			self.response.write('<option disabled>-------------</option>')
 			self.response.write('<option disabled>%s</option>' % dictionary['Name'])
@@ -20,13 +20,13 @@ class MainPage(webapp2.RequestHandler):
 				self.response.write('<option>%s</option>' % station)
 		self.response.write('</select></h3>')
 
-		self.response.write('<h3>To :<select name="to">')
+		self.response.write('<h3>To : <select name="to">')
 		for dictionary in data:
 			self.response.write('<option disabled>-------------</option>')
 			self.response.write('<option disabled>%s</option>' % dictionary['Name'])
 			for station in dictionary['Stations']:
 				self.response.write('<option>%s</option>' % station)
-		self.response.write('</select></h3><br><input type=submit value="  Search Route  ">')
+		self.response.write('</select></h3><input type=submit value="  Search Route  ">')
 		self.response.write('</body>')
 
 
