@@ -115,10 +115,10 @@ class RoutePlanner(webapp2.RequestHandler):
 
 		rec_line.reverse()
 		if count != 0:
-			self.response.write('<b> Recommend to take </b><br>')
+			self.response.write('<br><b>Recommend to take </b><br>')
 			for line in rec_line:
 				self.response.write('>> %s <br>' % line)
-			self.response.write('<br><hr><b style="color:chocolate">Transfer %d time(s).</b><hr>' %count)
+			self.response.write('<br><hr><b style="color:chocolate">Transfer %d time(s).</b><hr><br>' %count)
 
 		return rec_line
 
@@ -137,11 +137,12 @@ class RoutePlanner(webapp2.RequestHandler):
 				self.response.write('>> %s<br> '% station)
 			for i in range(len(route)-1):
 				print_route(route[i], route[i+1])
+				self.response.write('<br>here<br>')
 
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
 		for line in intersection_line:
-			self.response.write('<br><b style="color:orange">[ %s: ' % self.get_whole_line(line)['Name'])
+			self.response.write('<b style="color:orange">[ %s: ' % self.get_whole_line(line)['Name'])
 			start_index = self.get_index(start, self.get_whole_line(line)['Stations'])
 			end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
 			if start_index < end_index:
@@ -179,7 +180,7 @@ class RoutePlanner(webapp2.RequestHandler):
 		self.response.write('<b>From: </b><b style="color:cornflowerblue">%s</b><br>' % start)
 		self.response.write('<b>To: </b><b style="color:cornflowerblue">%s</b><br>' % end)
 		if self.check_same_line(start, end):
-			self.response.write('<br><hr><b style="color:chocolate">No need to transfer.</b><hr>')
+			self.response.write('<br><hr><b style="color:chocolate">No need to transfer.</b><hr><br>')
 			self.print_route(start, end)
 		else:
 			self.plan(start, end)
