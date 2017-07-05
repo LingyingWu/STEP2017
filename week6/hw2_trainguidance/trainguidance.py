@@ -174,8 +174,8 @@ class RoutePlanner(webapp2.RequestHandler):
 			route.append(end)
 			for i in range(0, len(route)-1):
 				self.print_route(route[i], route[i+1])
-				if i != len(route)-1:
-					self.response.write('<b style="color:orange">Tranfer </b>')
+				if i != len(route):
+					self.response.write('<b style="color:orange">Tranfer to >> </b>')
 
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
