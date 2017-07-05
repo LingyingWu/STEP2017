@@ -170,7 +170,7 @@ class RoutePlanner(webapp2.RequestHandler):
 			route.insert(0, start)
 			route.append(end)
 			for i in range(0, len(route)-1):
-				print_route(route[i], route[i+1])
+				self.print_route(route[i], route[i+1])
 
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
