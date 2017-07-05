@@ -50,6 +50,9 @@ class RoutePlanner(webapp2.RequestHandler):
 			if list[index] == target:
 				return index
 
+	def get_station_num(self, line):
+		n = len(self.get_whole_line(line)['Stations'])
+
 	def check_same_line(self, start, end): # check if the two stations are in the same line
 		start_line = self.get_line(start)
 		end_line = self.get_line(end)
@@ -84,7 +87,7 @@ class RoutePlanner(webapp2.RequestHandler):
 	def recommend_line(self, start, end): # return a list of recommend lines
 		current_lines = self.get_line(start)
 		end_lines = self.get_line(end)
-		conut = 0
+		count = 0
 		route_line = []
 		rec_line = []
 
@@ -128,9 +131,9 @@ class RoutePlanner(webapp2.RequestHandler):
 
 	def print_result(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
-		self.response.write('<br><b>Depart from: </b><b style="color:cornflowerblue">%s</b><br><br>' % start)
+		self.response.write('<br><b>From: </b><b style="color:cornflowerblue">%s</b><br><br>' % start)
 		self.print_route(start, end)
-		self.response.write('<br><b>Arrive at: </b><b style="color:cornflowerblue">%s</b>' % end)
+		self.response.write('<br><b>To: </b><b style="color:cornflowerblue">%s</b>' % end)
 
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
@@ -138,7 +141,11 @@ class RoutePlanner(webapp2.RequestHandler):
 			start_index = self.get_index(start, self.get_whole_line(line)['Stations'])
 			end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
 			if start_index < end_index:
-				route = self.get_whole_line(line)['Stations'][start_index:end_index+1]
+				if (end_index-start_index) > get_station_num(line):
+					route = self.get_whole_line(line)['Stations'][end_index:]
+					route.append(self.get_whole_line(line)['Stations'][0:start_index+1])
+				else: 
+					route = self.get_whole_line(line)['Stations'][start_index:end_index+1]
 			else:
 				route = self.get_whole_line(line)['Stations'][end_index:start_index+1]
 				route.reverse()
