@@ -81,48 +81,50 @@ class RoutePlanner(webapp2.RequestHandler):
 				line_set.add(line)
 		return line_set
 
-	def transfer(self, start, end):
-		next_line = self.recommend_line(start, end)
-		route = []
-		transfer_candidate = {}
-
-		for index in range(1, len(next_line)):
-			transfer_station = self.get_intersection_station(next_line[index-1], next_line[index])
-			transfer_candidate[(next_line[index-1], next_line[index])] = transfer_station
-			route.append(transfer_station[0])
-		if len(transfer_candidate) != 0:
-			self.response.write('<h3>Need transfer: </h3>')
-			for station in route:
-				self.response.write('>> %s<br> '% station)
-
-
 	def recommend_line(self, start, end): # return a list of recommend lines
 		current_lines = self.get_line(start)
 		end_lines = self.get_line(end)
-		#conut = 0
-		route = []
-		candidate = []
-		last_line = ''
+		conut = 0
+		route_line = []
+		rec_line = []
 
 		while not self.check_in_line(current_lines, end):
-			route.append(current_lines)
+			route_line.append(current_lines)
 			next_lines = set()
 			for line in current_lines:
-				next_lines |= self.adjust_line(line)
+				next_lines |= self.transferable_line(line)
 			current_lines = next_lines
-			#count += 1
+			count += 1
 
 		for line in (end_lines & current_lines):
-			last_line = str(line)
-		candidate.append(last_line)
+			rec_line.append(line)
 
-		for path in route[::-1]:
-			for item in (path & self.transferable_line(end_lines)):
-				end_lines = str(item)
-			candidate.append(end_lines)
+		for line_set in route_line[::-1]:
+			for line in (line_set & self.transferable_line(end_lines)):
+				rec_line.append(line)
 
 		candidate.reverse()
+		if count != 0:
+			self.response.write('<h4> Recommend to take </h4>')
+			for line in rec_line:
+				self.response.write('>> %s' % line)
+			self.response.write('<h4> (transfer %d times)</h4><br>' % count)
+
 		return candidate
+
+	def plan(self, start, end):
+		next_line = self.recommend_line(start, end)
+		route = []
+		transfer_station = {}
+
+		for index in range(1, len(next_line)):
+			transfer = self.get_intersection_station(next_line[index-1], next_line[index])
+			transfer_candidate[(next_line[index-1], next_line[index])] = transfer
+			route.append(transfer[0])
+		if len(transfer_station) != 0:
+			self.response.write('<h3>Need transfer: </h3>')
+			for station in route:
+				self.response.write('>> %s<br> '% station)
 
 	def print_result(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
@@ -153,7 +155,8 @@ class RoutePlanner(webapp2.RequestHandler):
 
 		if self.check_same_line(start, end):
 			self.print_result(start, end)
-		self.transfer(start, end)
+		else:
+			self.plan(start, end)
 		self.response.write('</body>')		
 
 
