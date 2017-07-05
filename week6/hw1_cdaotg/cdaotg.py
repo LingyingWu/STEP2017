@@ -4,11 +4,11 @@ class MainPage(webapp2.RequestHandler):
 	def get(self):
 		self.response.headers['Content=-Type'] = 'text/html'
 		self.response.write('<title>cdaotg</title>')
-		self.response.write('<body><h1>Please input two words: </h1>')
+		self.response.write('<body><h1>Please input two words</h1>')
 		self.response.write('<form>')
 		self.response.write('<h3 style="color:cornflowerblue;">input 1 : <input type ="text" name="a"></h3>')
 		self.response.write('<h3 style="color:orange;">input 2 : <input type ="text" name="b"></h3>')
-		self.response.write('<input type = submit></form><hr>')
+		self.response.write('<input type = submit></form><br>')
 
 		len_a = len(self.request.get("a"))
 		len_b = len(self.request.get("b"))
