@@ -142,7 +142,7 @@ class RoutePlanner(webapp2.RequestHandler):
 			start_index = self.get_index(start, self.get_whole_line(line)['Stations'])
 			end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
 			if start_index < end_index:
-				if (end_index-start_index) > self.get_station_num(line)/2:
+				if (end_index-start_index) > (self.get_station_num(line)/2):
 					route = self.get_whole_line(line)['Stations'][end_index:]
 					route.append(self.get_whole_line(line)['Stations'][1:start_index+1])
 					route.reverse()
