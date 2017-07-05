@@ -60,7 +60,7 @@ class RoutePlanner(webapp2.RequestHandler):
 		intersection_line = (self.get_line(start) & self.get_line(end))
 		for line in intersection_line:
 			start_index = self.get_index(start, self.get_whole_line(line)['Stations'])
-			end_index = self.get_index(end, self.get_whole_line(line)['Station'])
+			end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
 			if start_index < end_index:
 				route = self.get_whole_line(line)['Stations'][start_index:end_index+1]
 			else:
