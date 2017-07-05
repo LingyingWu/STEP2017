@@ -83,7 +83,8 @@ class RoutePlanner(webapp2.RequestHandler):
 
 	def transferable_line(self, line): # return set of lines can be transferred through the given line
 		line_set = set()
-		for station in self.get_whole_line(line)['Stations']:
+		line_dict = self.get_whole_line(line)
+		for station in line_dict['Stations']:
 			for line in self.get_line(station):
 				line_set.add(line)
 		return line_set
