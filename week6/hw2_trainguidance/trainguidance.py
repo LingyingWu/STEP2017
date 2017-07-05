@@ -78,7 +78,7 @@ class RoutePlanner(webapp2.RequestHandler):
 			line_a.add(station)
 		for station in self.get_whole_line(b)['Stations']:
 			line_b.add(station)
-		intersection_station = [str(i) for i in (line_a & line_b)]
+		intersection_station = [i for i in (line_a & line_b)]
 		return intersection_station
 
 	def transferable_line(self, line): # return set of lines can be transferred through the given line
