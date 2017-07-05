@@ -1,6 +1,6 @@
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
+#import sys
+#reload(sys)
+#sys.setdefaultencoding('utf-8')
 
 import webapp2
 import json
@@ -142,7 +142,7 @@ class RoutePlanner(webapp2.RequestHandler):
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
 		for line in intersection_line:
-			self.response.write('<b style="color:orange">[ %s: ' % self.get_whole_line(line)['Name'])
+			self.response.write('<br><b style="color:orange">[ %s: ' % self.get_whole_line(line)['Name'])
 			start_index = self.get_index(start, self.get_whole_line(line)['Stations'])
 			end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
 			if start_index < end_index:
