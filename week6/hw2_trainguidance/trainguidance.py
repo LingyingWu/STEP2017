@@ -83,6 +83,6 @@ class RoutePlanner(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-	('/', MainPage)
-	('/searchresult?', RoutePlanner)
+	('/', MainPage),
+	('/search-result', RoutePlanner)
 ], debug = True)
