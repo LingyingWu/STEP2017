@@ -118,7 +118,7 @@ class RoutePlanner(webapp2.RequestHandler):
 			self.response.write('<b> Recommend to take </b><br>')
 			for line in rec_line:
 				self.response.write('>> %s <br>' % line)
-			self.response.write('<br><hr><b style="color:green">Transfer %d times.</b><hr>' %count)
+			self.response.write('<br><hr><b style="color:chocolate">Transfer %d time(s).</b><hr>' %count)
 
 		return rec_line
 
@@ -177,7 +177,7 @@ class RoutePlanner(webapp2.RequestHandler):
 		self.response.write('<b>From: </b><b style="color:cornflowerblue">%s</b><br>' % start)
 		self.response.write('<b>To: </b><b style="color:cornflowerblue">%s</b><br>' % end)
 		if self.check_same_line(start, end):
-			self.response.write('<br><hr><b style="color:green">No need to transfer.</b><hr>')
+			self.response.write('<br><hr><b style="color:cholocate">No need to transfer.</b><hr>')
 			self.print_route(start, end)
 		else:
 			self.plan(start, end)
