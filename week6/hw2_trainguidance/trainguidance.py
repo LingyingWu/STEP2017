@@ -7,7 +7,7 @@ data = json.load(urllib2.urlopen(url))
 
 class MainPage(webapp2.RequestHandler):
 	def get(self):
-		self.response.headers['Content-Type'] = 'text/html'
+		self.response.headers['Content-Type'] = 'text/html;charset=UTF-8'
 		#file = open('input.html').read()
 		#self.response.out.write(file)
 		self.response.write('<title>Train Guidance</title>')
@@ -15,17 +15,17 @@ class MainPage(webapp2.RequestHandler):
 		self.response.write('From :<select name="from">')
 		for dictionary in data:
 			self.response.write('<option disabled>-------------</option>')
-			self.response.write('<option disabled>%s</option>' % dictionary['Name'].encode('utf-8'))
+			self.response.write('<option disabled>%s</option>' % dictionary['Name'])
 			for station in dictionary['Stations']:
-				self.response.write('<option>%s</option>' % station.encode('utf-8'))
+				self.response.write('<option>%s</option>' % station)
 		self.response.write('</select><br>')
 
 		self.response.write('To :<select name="to">')
 		for dictionary in data:
 			self.response.write('<option disabled>-------------</option>')
-			self.response.write('<option disabled>%s</option>' % dictionary['Name'].encode('utf-8'))
+			self.response.write('<option disabled>%s</option>' % dictionary['Name'])
 			for station in dictionary['Stations']:
-				self.response.write('<option>%s</option>' % station.encode('utf-8'))
+				self.response.write('<option>%s</option>' % station)
 		self.response.write('</select><br><br><input type=submit value="  Search Route  ">')
 		self.response.write('</body>')
 
@@ -52,15 +52,15 @@ class RoutePlanner(webapp2.RequestHandler):
 
 	def print_result(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
-		self.response.write('<br><b>Depart from: </b><b style="color:orange">%s</b>' % start.encode('utf-8'))
+		self.response.write('<br><b>Depart from: </b><b style="color:orange">%s</b>' % start)
 		self.print_route(start, end)
-		self.response.write('<br><b>Arrive at: </b><b style="color:orange">%s</b>' % end.encode('utf-8'))
+		self.response.write('<br><b>Arrive at: </b><b style="color:orange">%s</b>' % end)
 
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
 		for line in intersection_line:
 			start_index = self.get_index(start, self.get_whole_line(line)['Stations'])
-			end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
+			end_index = self.get_index(end, self.get_whole_line(line)['Station'])
 			if start_index < end_index:
 				route = self.get_whole_line(line)['Stations'][start_index:end_index+1]
 			else:
@@ -69,10 +69,10 @@ class RoutePlanner(webapp2.RequestHandler):
 
 			for station in route:
 				line_string = '/'.join([str(i) for i in self.get_line(start)])
-				self.response.write('>> [%s] %s<br>' % (line_string.encode('utf-8'), station.encode('utf-8')))
+				self.response.write('>> [%s] %s<br>' % (line_string, station))
 
 	def get(self):
-		self.response.headers['Content-Type'] = 'text/html'
+		self.response.headers['Content-Type'] = 'text/html;charset=UTF-8'
 		self.response.write('<title>Search Result</title>')
 		self.response.write('<body><h1>Search Result</h1>')
 		start = self.request.get("from")
@@ -84,5 +84,5 @@ class RoutePlanner(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
 	('/', MainPage),
-	('/guidance', RoutePlanner)
+	('/search-result', RoutePlanner)
 ], debug = True)
