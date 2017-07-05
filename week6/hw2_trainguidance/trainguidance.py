@@ -18,7 +18,7 @@ class MainPage(webapp2.RequestHandler):
 			self.response.write('<option disabled>%s</option>' % dictionary['Name'])
 			for station in dictionary['Stations']:
 				self.response.write('<option>%s</option>' % station)
-		self.response.write('</select></h3><br>')
+		self.response.write('</select></h3>')
 
 		self.response.write('<h3>To :<select name="to">')
 		for dictionary in data:
@@ -26,7 +26,7 @@ class MainPage(webapp2.RequestHandler):
 			self.response.write('<option disabled>%s</option>' % dictionary['Name'])
 			for station in dictionary['Stations']:
 				self.response.write('<option>%s</option>' % station)
-		self.response.write('</select></h3><br><br><input type=submit value="  Search Route  ">')
+		self.response.write('</select></h3><br><input type=submit value="  Search Route  ">')
 		self.response.write('</body>')
 
 
@@ -52,9 +52,9 @@ class RoutePlanner(webapp2.RequestHandler):
 
 	def print_result(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
-		self.response.write('<br><b>Depart from: </b><b style="color:orange">%s</b><br>' % start)
+		self.response.write('<br><b>Depart from: </b><b style="color:cornflowerblue">%s</b><br>' % start)
 		self.print_route(start, end)
-		self.response.write('<br><b>Arrive at: </b><b style="color:orange">%s</b>' % end)
+		self.response.write('<br><b>Arrive at: </b><b style="color:cornflowerblue">%s</b>' % end)
 
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
