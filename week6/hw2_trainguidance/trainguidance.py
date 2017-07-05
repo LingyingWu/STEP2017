@@ -149,7 +149,7 @@ class RoutePlanner(webapp2.RequestHandler):
 			self.response.write('</b><br>')
 			for station in route:
 				if station == (route[0] or route[len(route)-1]):
-					self.response.write('>> <b>%s<b><br>' % station)
+					self.response.write('>> <b style="color:cornflowerblue">%s</b><br>' % station)
 				else:
 					self.response.write('>> %s<br>' % station)
 
