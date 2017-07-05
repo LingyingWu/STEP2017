@@ -7,7 +7,7 @@ data = json.load(urllib2.urlopen(url))
 
 class MainPage(webapp2.RequestHandler):
 	def get(self):
-		self.response.headers['Content-Type'] = 'text/html;charset=UTF-8'
+		self.response.headers['Content-Type'] = 'text/html'
 		#file = open('input.html').read()
 		#self.response.out.write(file)
 		self.response.write('<title>Train Guidance</title>')
@@ -68,11 +68,11 @@ class RoutePlanner(webapp2.RequestHandler):
 				route.reverse()
 
 			for station in route:
-				line_string = '/'.join([str(i) for i in self.get_line(start)])
+				line_string = '/'.join([str(i).encode('utf-8') for i in self.get_line(start)])
 				self.response.write('>> [%s] %s<br>' % (line_string, station))
 
 	def get(self):
-		self.response.headers['Content-Type'] = 'text/html;charset=UTF-8'
+		self.response.headers['Content-Type'] = 'text/html'
 		self.response.write('<title>Search Result</title>')
 		self.response.write('<body><h1>Search Result</h1>')
 		start = self.request.get("from")
