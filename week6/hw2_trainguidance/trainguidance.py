@@ -98,7 +98,7 @@ class RoutePlanner(webapp2.RequestHandler):
 
 	def recommend_line(self, start, end): # return a list of recommend lines
 		current_lines = self.get_line(start)
-		end_lines = self.getline(end)
+		end_lines = self.get_line(end)
 		#conut = 0
 		route = []
 		candidate = []
