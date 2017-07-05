@@ -49,46 +49,6 @@ class RoutePlanner(webapp2.RequestHandler):
 		for index in range(len(list)):
 			if list[index] == target:
 				return index
-"""
-	def check_station(self, start, end): # check if the stations in the same line
-		start_line = self.get_line(start)
-		end_line = self.get_line(end)
-		intersection_list = [str(stat) for stat in (start_line & end_line)]
-		return intersection_list
-
-	def check_line(self, current_line, end): # check if destination in current line
-		for line in current_line:
-			if end in current_line:
-				return True
-		return False
-
-	def unknown(self, line):
-		line_set = set()
-		line_dict = self.get_whole_line(line)
-		for station in line_dict['Stations']:
-			for line in self.get_line(station):
-				line_set.add(line)
-		return line_set
-
-	def get_intersection_station(self, a, b): # get a list of intersection station
-		line_a = self.get_whole_line(a)
-		line_b = self.get_whole_line(b)
-		set_a = set()
-		set_b = set()
-		for station in line_a['Stations']:
-			set_a.add(station)
-		for station in line_b['Stations']:
-			set_b.add(station)
-		return [str(stat) for stat in (set_a & set_b)]
-
-
-	def get_intersection_line(self, current): # get a set of intersection line
-		current_line = self.get_whole_line(current)
-		line_set = set()
-		for station in current_line['Stations']:
-			line_set |= self.get_line(station)
-		return line_set
-"""
 
 	def print_result(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
