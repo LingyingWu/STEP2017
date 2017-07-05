@@ -131,7 +131,7 @@ class RoutePlanner(webapp2.RequestHandler):
 
 	def print_result(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
-		self.response.write('<br><b>From: </b><b style="color:cornflowerblue">%s</b><br><br>' % start)
+		self.response.write('<br><b>From: </b><b style="color:cornflowerblue">%s</b><br>' % start)
 		self.print_route(start, end)
 		self.response.write('<br><b>To: </b><b style="color:cornflowerblue">%s</b>' % end)
 
@@ -142,7 +142,7 @@ class RoutePlanner(webapp2.RequestHandler):
 			start_index = self.get_index(start, self.get_whole_line(line)['Stations'])
 			end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
 			if start_index < end_index:
-				if (end_index-start_index) > self.get_station_num(line):
+				if (end_index-start_index) > self.get_station_num(line)/2:
 					route = self.get_whole_line(line)['Stations'][end_index:]
 					route.append(self.get_whole_line(line)['Stations'][1:start_index+1])
 					route.reverse()
