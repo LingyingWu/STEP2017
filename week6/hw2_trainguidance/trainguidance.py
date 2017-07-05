@@ -132,14 +132,14 @@ class RoutePlanner(webapp2.RequestHandler):
 			transfer_station[(next_line[index-1], next_line[index])] = transfer
 			route.append(transfer[0])
 		if len(transfer_station) != 0:
-			self.response.write('<h3>Need transfer at: </h3>')
+			self.response.write('<b>Need transfer at: </b><br>')
 			for station in route:
 				self.response.write('>> %s<br> '% station)
-
+'''
 	def print_result(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
 		self.print_route(start, end)
-
+'''
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
 		for line in intersection_line:
@@ -180,7 +180,8 @@ class RoutePlanner(webapp2.RequestHandler):
 
 		self.response.write('<br><b>From: </b><b style="color:cornflowerblue">%s</b><br>' % start)
 		if self.check_same_line(start, end):
-			self.print_result(start, end)
+			self.response.write('<b style="color:green">No need to transfer.</b><br>')
+			self.print_route(start, end)
 		else:
 			self.plan(start, end)
 		self.response.write('<br><b>To: </b><b style="color:cornflowerblue">%s</b>' % end)
