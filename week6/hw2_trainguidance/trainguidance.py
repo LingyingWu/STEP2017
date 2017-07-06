@@ -212,6 +212,7 @@ class RoutePlanner(webapp2.RequestHandler):
 					self.response.write('>> <b style="color:cornflowerblue">%s</b>' % station)
 				else:
 					self.response.write('>> %s' % station)
+			self.response.write('<br>')
 
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
@@ -228,12 +229,12 @@ class RoutePlanner(webapp2.RequestHandler):
 		else:
 			self.plan(start, end)
 
-		self.response.write('<br><form action="http://train-guidance-172817.appspot.com/"><input type="submit" value=" Reset "></form>')
+		self.response.write('<br><br><form action="http://train-guidance-172817.appspot.com/"><input type="submit" value=" Reset "></form>')
 		self.response.write('</body>')		
 
 
 app = webapp2.WSGIApplication([
 	('/', MainPage),
-	('/search-result', RoutePlanner),
-	('/alice',AliceMainPage)
+	('/alice',AliceMainPage),
+	('/search-result', RoutePlanner)
 ], debug = True)
