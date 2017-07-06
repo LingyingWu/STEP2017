@@ -84,8 +84,8 @@ class NausicaaMainPage(webapp2.RequestHandler):
 		global data
 		data = json.load(urllib2.urlopen(url))
 		self.response.headers['Content-Type'] = 'text/html'
-		self.response.write('<title>Train Guidance: Nausicaa</title>')
-		self.response.write('<body><form action="../search-result"><h1>Train Guidance: Nausicaa</h1>')
+		self.response.write('<title>Train Guidance: Nausicaa of the Valley of the wind</title>')
+		self.response.write('<body><form action="../search-result"><h1>Train Guidance: Nausicaa of the Valley of the wind</h1>')
 		self.response.write('<h3>From : <select name="from">')
 		for dictionary in data:
 			self.response.write('<option disabled>-------------</option>')
@@ -121,7 +121,7 @@ class LotrMainPage(webapp2.RequestHandler):
 		global data
 		data = json.load(urllib2.urlopen(url))
 		self.response.headers['Content-Type'] = 'text/html'
-		self.response.write('<title>Train Guidance: Middle Earth</title>')
+		self.response.write('<title>Train Guidance: Middle Earth (Lord of the Rings)</title>')
 		self.response.write('<body><form action="../search-result"><h1>Train Guidance: Middle Earth (Lord of the Rings)</h1>')
 		self.response.write('<h3>From : <select name="from">')
 		for dictionary in data:
@@ -158,7 +158,7 @@ class PokemonMainPage(webapp2.RequestHandler):
 		global data
 		data = json.load(urllib2.urlopen(url))
 		self.response.headers['Content-Type'] = 'text/html'
-		self.response.write('<title>Train Guidance: Pokemon</title>')
+		self.response.write('<title>Train Guidance: Pokemon: Kanto Region</title>')
 		self.response.write('<body><form action="../search-result"><h1>Train Guidance: Pokemon: Kanto Region</h1>')
 		self.response.write('<h3>From : <select name="from">')
 		for dictionary in data:
@@ -175,6 +175,7 @@ class PokemonMainPage(webapp2.RequestHandler):
 			for station in dictionary['Stations']:
 				self.response.write('<option>%s</option>' % station)
 		self.response.write('</select></h3><input type="submit" value="  Search Route  "></form>')
+		self.response.write('<h4 style="color:red">Warning: Diglett Network is unreachable from other lines.</h4>')
 
 		self.response.write('<br><h3>Reference:<h3><ul>')
 		self.response.write('<li><a href="http://pokemon.fantasy-transit.appspot.com/map" target="_blank">Map</a></li></ul>')
