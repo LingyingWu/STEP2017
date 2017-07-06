@@ -26,7 +26,7 @@ class MainPage(webapp2.RequestHandler):
 				self.response.write('<option>%s</option>' % station)
 		self.response.write('</select></h3><input type="submit" value="  Search Route  "></form>')
 
-		self.responser.write('<h3>Alternate worlds:</h3><ul>')
+		self.response.write('<h3>Alternate worlds:</h3><ul>')
 		self.response.write('<li><a href="http://train-guidance-172817.appspot.com/">Tokyo</a></li>')
 		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/alice">Alice in Wonderland</a></li>')
 		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/nausicaa">Nausicaa of the Valley of the wind</a></li>')
@@ -58,7 +58,7 @@ class AliceMainPage(webapp2.RequestHandler):
 				self.response.write('<option>%s</option>' % station)
 		self.response.write('</select></h3><input type="submit" value="  Search Route  "></form>')
 
-		self.responser.write('<h3>Alternate worlds:</h3><ul>')
+		self.response.write('<h3>Alternate worlds:</h3><ul>')
 		self.response.write('<li><a href="http://train-guidance-172817.appspot.com/">Tokyo</a></li>')
 		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/alice">Alice in Wonderland</a></li>')
 		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/nausica">Nausicaa of the Valley of the wind</a></li>')
