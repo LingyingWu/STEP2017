@@ -179,7 +179,6 @@ class RoutePlanner(webapp2.RequestHandler):
 		line = set([])
 		for dictionary in data:
 			for station in dictionary['Stations']:
-				# build set of station and line
 				if station == target:
 					line.add(dictionary['Name'])
 		return line
@@ -286,6 +285,7 @@ class RoutePlanner(webapp2.RequestHandler):
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
 		m = sys.maxint
+		line = []
 		for l in intersection_line:
 			start_index = self.get_index(start, self.get_whole_line(line)['Stations'])
 			end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
