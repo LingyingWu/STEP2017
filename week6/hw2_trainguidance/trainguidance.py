@@ -312,7 +312,7 @@ class RoutePlanner(webapp2.RequestHandler):
 				route = self.get_whole_line(line)['Stations'][start_index:end_index+1]
 				self.response.write('down ]')
 		else:
-			if self.check_circle(line) (start_index-end_index) > (self.get_station_num(line)/2):
+			if self.check_circle(line) and (start_index-end_index) > (self.get_station_num(line)/2):
 				route = self.get_whole_line(line)['Stations'][start_index:]
 				for i in range(1, end_index+1):
 					route.append(self.get_whole_line(line)['Stations'][i])
