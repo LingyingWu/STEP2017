@@ -8,8 +8,6 @@ data = json.load(urllib2.urlopen(url))
 class MainPage(webapp2.RequestHandler):
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
-		#file = open('input.html').read()
-		#self.response.out.write(file)
 		self.response.write('<title>Train Guidance</title>')
 		self.response.write('<body><form action="/search-result"><h1>Train Guidance</h1>')
 		self.response.write('<h3>From : <select name="from">')
@@ -187,8 +185,7 @@ class RoutePlanner(webapp2.RequestHandler):
 			self.print_route(start, end)
 		else:
 			self.plan(start, end)
-
-		self.response.write('<form action="http://train-guidance-172817.appspot.com/"><input type="button" value=" Reset "></form>')
+		
 		self.response.write('</body>')		
 
 
