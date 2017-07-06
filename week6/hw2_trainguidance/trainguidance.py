@@ -175,7 +175,7 @@ class PokemonMainPage(webapp2.RequestHandler):
 			for station in dictionary['Stations']:
 				self.response.write('<option>%s</option>' % station)
 		self.response.write('</select></h3><input type="submit" value="  Search Route  "></form>')
-		self.response.write('<h4 style="color:tomato">Warning: Diglett Network is unreachable from other lines.</h4>')
+		self.response.write('<h4 style="color:tomato">Warning: \"Diglett Network\" is unreachable from other lines.</h4>')
 
 		self.response.write('<h3>Reference:<h3><ul>')
 		self.response.write('<li><a href="http://pokemon.fantasy-transit.appspot.com/map" target="_blank">Map</a></li></ul>')
