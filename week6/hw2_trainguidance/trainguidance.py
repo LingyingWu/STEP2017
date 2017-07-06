@@ -2,11 +2,12 @@ import webapp2
 import json
 import urllib2
 
-url = 'http://fantasy-transit.appspot.com/net?format=json'
-data = json.load(urllib2.urlopen(url))
-
 class MainPage(webapp2.RequestHandler):
 	def get(self):
+		global url
+		url = 'http://fantasy-transit.appspot.com/net?format=json'
+		global data
+		data = json.load(urllib2.urlopen(url))
 		self.response.headers['Content-Type'] = 'text/html'
 		self.response.write('<title>Train Guidance</title>')
 		self.response.write('<body><form action="/search-result"><h1>Train Guidance: Tokyo</h1>')
@@ -335,7 +336,7 @@ class RoutePlanner(webapp2.RequestHandler):
 			self.plan(start, end)
 
 		self.response.write('<br><br><form action="../"><input type="submit" value=" Reset "></form>')
-		self.response.write('</body>')		
+		self.response.write('</body>')
 
 
 app = webapp2.WSGIApplication([
