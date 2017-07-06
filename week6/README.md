@@ -7,10 +7,11 @@ example:
 - パトカー + タクシー = パタトクカシーー
 - cat + dog = cdaotg
 
-Result application: [cdaotg](http://catdog-172704.appspot.com)
+Result application URL: [http://catdog-172704.appspot.com](http://catdog-172704.appspot.com)
 
 ***
 ### 課題２：[Train Guidance](http://fantasy-transit.appspot.com/)  
 Problem: implement basic train guidance  
-
 Reference: [Using JSON in Python](http://docs.python.org/2/library/json.html)
+
+Result application URL: [http://train-guidance-172817.appspot.com](http://train-guidance-172817.appspot.com)
