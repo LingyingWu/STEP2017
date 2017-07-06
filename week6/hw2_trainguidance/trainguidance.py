@@ -291,6 +291,7 @@ class RoutePlanner(webapp2.RequestHandler):
 			end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
 			length = abs(start_index - end_index)
 			if length < m:
+				m = lngth
 				line = l
 
 		self.response.write('<b style="color:orange">[ %s: ' % self.get_whole_line(line)['Name'])
