@@ -242,11 +242,8 @@ class RoutePlanner(webapp2.RequestHandler):
 			current_lines = next_lines
 			count += 1
 
-		last_line = ''
-		for line in (end_lines & current_lines): # initialize
-			last_line = line
+		last_line = list(end_lines & current_lines)[0]
 		trans_line.append(last_line)
-
 		for line_set in route_line[::-1]:
 			for line in (line_set & self.transferable_line(last_line)):
 				last_line = line
@@ -285,7 +282,7 @@ class RoutePlanner(webapp2.RequestHandler):
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
 		m = sys.maxint
-		line = intersection_line.get(0)
+		line = list(intersection_line)[0]
 		for l in intersection_line:
 			start_index = self.get_index(start, self.get_whole_line(line)['Stations'])
 			end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
