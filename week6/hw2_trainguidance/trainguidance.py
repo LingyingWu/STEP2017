@@ -285,7 +285,7 @@ class RoutePlanner(webapp2.RequestHandler):
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
 		m = sys.maxint
-		line = set([])
+		line = intersection_line[0]
 		for l in intersection_line:
 			start_index = self.get_index(start, self.get_whole_line(line)['Stations'])
 			end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
