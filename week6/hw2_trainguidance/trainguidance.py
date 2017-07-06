@@ -115,6 +115,30 @@ class RoutePlanner(webapp2.RequestHandler):
 
 		return trans_line
 
+	def plan(self, start, end):
+		next_line = self.transfer_line(start, end)
+		route = []
+		transfer_station = {}
+
+		for index in range(1, len(next_line)):
+			transfer = self.get_intersection_station(next_line[index-1], next_line[index])
+			transfer_station[(next_line[index-1], next_line[index])] = transfer
+			route.append(transfer[0])
+		if len(transfer_station) != 0:
+			self.response.write('<br>Transfer Stations(s): ')
+			for station in route:
+				self.response.write('<b style="color:chocolate"> %s </b>'% station)
+				if station != route[len(route)-1]:
+					self.response.write('and')
+			self.response.write('<hr><br>')
+
+			route.insert(0, start)
+			route.append(end)
+			for i in range(0, len(route)-1):
+				if i != 0:
+					self.response.write('<br><b style="color:orange">Tranfer to >> </b>')
+				self.print_route(route[i], route[i+1])
+
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
 		for line in intersection_line:
@@ -145,33 +169,9 @@ class RoutePlanner(webapp2.RequestHandler):
 			self.response.write('</b><br>')
 			for station in route:
 				if station == route[0] or station == route[len(route)-1]:
-					self.response.write('>> <b style="color:cornflowerblue">%s</b><br>' % station)
+					self.response.write('>> <b style="color:cornflowerblue">%s</b>' % station)
 				else:
-					self.response.write('>> %s<br>' % station)
-
-	def plan(self, start, end):
-		next_line = self.transfer_line(start, end)
-		route = []
-		transfer_station = {}
-
-		for index in range(1, len(next_line)):
-			transfer = self.get_intersection_station(next_line[index-1], next_line[index])
-			transfer_station[(next_line[index-1], next_line[index])] = transfer
-			route.append(transfer[0])
-		if len(transfer_station) != 0:
-			self.response.write('<br>Transfer Stations(s): ')
-			for station in route:
-				self.response.write('<b style="color:chocolate"> %s </b>'% station)
-				if station != route[len(route)-1]:
-					self.response.write('and')
-			self.response.write('<hr><br>')
-
-			route.insert(0, start)
-			route.append(end)
-			for i in range(0, len(route)-1):
-				if i != 0:
-					self.response.write('<b style="color:orange">Tranfer to >> </b>')
-				self.print_route(route[i], route[i+1])
+					self.response.write('>> %s' % station)
 
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
@@ -183,12 +183,12 @@ class RoutePlanner(webapp2.RequestHandler):
 		self.response.write('<b>From: </b><b style="color:cornflowerblue">%s</b><br>' % start)
 		self.response.write('<b>To: </b><b style="color:cornflowerblue">%s</b><br>' % end)
 		if self.check_same_line(start, end):
-			self.response.write('<br><hr><b style="color:chocolate">No need to transfer.</b><hr><br>')
+			self.response.write('<br><hr><b style="color:chocolate">No need to transfer.</b><hr><br><br>')
 			self.print_route(start, end)
 		else:
 			self.plan(start, end)
 
-		self.response.write('<form action="/"><input type="reset" value=" Reset "></form>')
+		self.response.write('<form action="http://train-guidance-172817.appspot.com/"><input type="button" value=" Reset "></form>')
 		self.response.write('</body>')		
 
 
