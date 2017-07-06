@@ -196,6 +196,13 @@ class RoutePlanner(webapp2.RequestHandler):
 	def get_station_num(self, line):
 		return len(self.get_whole_line(line)['Stations'])
 
+	def chcek_circle(self, line):
+		origin = self.get_whole_line(line)['Stations'][0]
+		terminal = self.get_whole_line(line)['Stations'][self.get_station_num(line)-1]
+		if origin == terminal
+			return True
+		else False
+
 	def check_same_line(self, start, end): # check if the two stations are in the same line
 		start_line = self.get_line(start)
 		end_line = self.get_line(end)
@@ -295,7 +302,7 @@ class RoutePlanner(webapp2.RequestHandler):
 		start_index = self.get_index(start, self.get_whole_line(line)['Stations'])
 		end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
 		if start_index < end_index:
-			if (end_index-start_index) > (self.get_station_num(line)/2):
+			if check_circle(line) and (end_index-start_index) > (self.get_station_num(line)/2):
 				route = self.get_whole_line(line)['Stations'][end_index:]
 				for i in range(1, start_index+1):
 					route.append(self.get_whole_line(line)['Stations'][i])
@@ -305,7 +312,7 @@ class RoutePlanner(webapp2.RequestHandler):
 				route = self.get_whole_line(line)['Stations'][start_index:end_index+1]
 				self.response.write('down ]')
 		else:
-			if (start_index-end_index) > (self.get_station_num(line)/2):
+			if heck_circle(line) (start_index-end_index) > (self.get_station_num(line)/2):
 				route = self.get_whole_line(line)['Stations'][start_index:]
 				for i in range(1, end_index+1):
 					route.append(self.get_whole_line(line)['Stations'][i])
