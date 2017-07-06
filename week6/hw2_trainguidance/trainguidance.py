@@ -105,7 +105,7 @@ class NausicaaMainPage(webapp2.RequestHandler):
 		self.response.write('<br><h3>Reference:<h3><ul>')
 		self.response.write('<li><a href="http://nausicaa.fantasy-transit.appspot.com/map">Map</a></li></ul>')
 
-		self.response.write('<br><h3>Alternate worlds:</h3><ul>')
+		self.response.write('<h3>Alternate worlds:</h3><ul>')
 		self.response.write('<li><a href="../">Tokyo</a></li>')
 		self.response.write('<li><a href="../alice">Alice in Wonderland</a></li>')
 		self.response.write('<li><a href="../nausicaa">Nausicaa of the Valley of the wind</a></li>')
@@ -340,9 +340,9 @@ class RoutePlanner(webapp2.RequestHandler):
 		self.response.write('</b><br>')
 		for station in route:
 			if station == route[0] or station == route[len(route)-1]:
-				self.response.write('>> <b style="color:cornflowerblue">%s</b>' % station)
+				self.response.write('>> <b style="color:cornflowerblue">%s </b>' % station)
 			else:
-				self.response.write('>> %s' % station)
+				self.response.write('>> %s ' % station)
 
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
