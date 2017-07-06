@@ -181,12 +181,12 @@ class RoutePlanner(webapp2.RequestHandler):
 		self.response.write('<b>From: </b><b style="color:cornflowerblue">%s</b><br>' % start)
 		self.response.write('<b>To: </b><b style="color:cornflowerblue">%s</b><br>' % end)
 		if self.check_same_line(start, end):
-			self.response.write('<br><hr><b style="color:chocolate">No need to transfer.</b><hr><br><br>')
+			self.response.write('<br><hr><b>No need to transfer.</b><hr><br><br>')
 			self.print_route(start, end)
 		else:
 			self.plan(start, end)
 
-		self.response.write('<br><form action="http://train-guidance-172817.appspot.com/"><input type="submit" value=" Reset "></form>')
+		self.response.write('<form action="http://train-guidance-172817.appspot.com/"><input type="submit" value=" Reset "></form>')
 		self.response.write('</body>')		
 
 
