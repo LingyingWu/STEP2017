@@ -9,7 +9,7 @@ class MainPage(webapp2.RequestHandler):
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
 		self.response.write('<title>Train Guidance</title>')
-		self.response.write('<body><form action="/search-result"><h1>Train Guidance</h1>')
+		self.response.write('<body><form action="/search-result"><h1>Train Guidance: Tokyo</h1>')
 		self.response.write('<h3>From : <select name="from">')
 		for dictionary in data:
 			self.response.write('<option disabled>-------------</option>')
@@ -41,7 +41,7 @@ class AliceMainPage(webapp2.RequestHandler):
 		data = json.load(urllib2.urlopen(url))
 		self.response.headers['Content-Type'] = 'text/html'
 		self.response.write('<title>Train Guidance</title>')
-		self.response.write('<body><form action="../search-result"><h1>Train Guidance</h1>')
+		self.response.write('<body><form action="/search-result"><h1>Train Guidance: Alice in Wonderlan</h1>')
 		self.response.write('<h3>From : <select name="from">')
 		for dictionary in data:
 			self.response.write('<option disabled>-------------</option>')
@@ -232,6 +232,7 @@ class RoutePlanner(webapp2.RequestHandler):
 
 app = webapp2.WSGIApplication([
 	('/', MainPage),
+	('/search-result', RoutePlanner),
 	('/alice',AliceMainPage),
-	('/search-result', RoutePlanner)
+	('/alice/search-result', RoutePlanner)
 ], debug = True)
