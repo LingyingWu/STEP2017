@@ -139,7 +139,7 @@ class LotrMainPage(webapp2.RequestHandler):
 				self.response.write('<option>%s</option>' % station)
 		self.response.write('</select></h3><input type="submit" value="  Search Route  "></form>')
 
-		sself.response.write('<br><h3>Reference:<h3><ul>')
+		self.response.write('<br><h3>Reference:<h3><ul>')
 		self.response.write('<li><a href="http://lotr.fantasy-transit.appspot.com/map">Map</a></li></ul>')
 
 		self.response.write('<h3>Alternate worlds:</h3><ul>')
