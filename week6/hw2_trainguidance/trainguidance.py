@@ -41,7 +41,7 @@ class AliceMainPage(webapp2.RequestHandler):
 		data = json.load(urllib2.urlopen(url))
 		self.response.headers['Content-Type'] = 'text/html'
 		self.response.write('<title>Train Guidance</title>')
-		self.response.write('<body><form action="/search-result"><h1>Train Guidance</h1>')
+		self.response.write('<body><form action="../search-result"><h1>Train Guidance</h1>')
 		self.response.write('<h3>From : <select name="from">')
 		for dictionary in data:
 			self.response.write('<option disabled>-------------</option>')
