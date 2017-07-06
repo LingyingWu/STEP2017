@@ -186,6 +186,7 @@ class RoutePlanner(webapp2.RequestHandler):
 		else:
 			self.plan(start, end)
 
+		self.response.write('<form action="http://train-guidance-172817.appspot.com/"><input type="submit" name=" Reset "></form>')
 		self.response.write('</body>')		
 
 
