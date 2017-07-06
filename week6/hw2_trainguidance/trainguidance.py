@@ -201,7 +201,7 @@ class RoutePlanner(webapp2.RequestHandler):
 		terminal = self.get_whole_line(line)['Stations'][self.get_station_num(line)-1]
 		if origin == terminal:
 			return True
-		else False
+		return False
 
 	def check_same_line(self, start, end): # check if the two stations are in the same line
 		start_line = self.get_line(start)
