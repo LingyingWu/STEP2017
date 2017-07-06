@@ -7,7 +7,7 @@ example:
 - パトカー + タクシー = パタトクカシーー
 - cat + dog = cdaotg
 
-Result application URL: [http://catdog-172704.appspot.com](http://catdog-172704.appspot.com)
+Application URL: [http://catdog-172704.appspot.com](http://catdog-172704.appspot.com)
 
 ***
 ### 課題２：[Train Guidance](http://fantasy-transit.appspot.com/)  
@@ -16,4 +16,4 @@ Route searching principle: __least transfer time__ (keep woking on others)
   
 Reference: [Using JSON in Python](http://docs.python.org/2/library/json.html)
 
-Result application URL: [http://train-guidance-172817.appspot.com](http://train-guidance-172817.appspot.com)
+Application URL: [http://train-guidance-172817.appspot.com](http://train-guidance-172817.appspot.com)
