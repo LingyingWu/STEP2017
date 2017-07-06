@@ -25,7 +25,47 @@ class MainPage(webapp2.RequestHandler):
 			for station in dictionary['Stations']:
 				self.response.write('<option>%s</option>' % station)
 		self.response.write('</select></h3><input type="submit" value="  Search Route  "></form>')
-		self.response.write('</body>')
+
+		self.responser.write('<h3>Alternate worlds:</h3><ul>')
+		self.response.write('<li><a href="http://train-guidance-172817.appspot.com/">Tokyo</a></li>')
+		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/alice">Alice in Wonderland</a></li>')
+		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/nausica">風の谷のナウシカ</a></li>')
+		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/lotr">Middle Earth (Lord of the Rings)</a></li>')
+		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/"pokemon>Pokemon: Kanto Region</a></li>')
+
+		self.response.write('</ul></body>')
+
+class AliceMainPage(webapp2.RequestHandler):
+	def get(self):
+		url = 'http://alice.fantasy-transit.appspot.com/net?format=json'
+		data = json.load(urllib2.urlopen(url))
+		self.response.headers['Content-Type'] = 'text/html'
+		self.response.write('<title>Train Guidance</title>')
+		self.response.write('<body><form action="/search-result"><h1>Train Guidance</h1>')
+		self.response.write('<h3>From : <select name="from">')
+		for dictionary in data:
+			self.response.write('<option disabled>-------------</option>')
+			self.response.write('<option disabled>%s</option>' % dictionary['Name'])
+			for station in dictionary['Stations']:
+				self.response.write('<option>%s</option>' % station)
+		self.response.write('</select></h3>')
+
+		self.response.write('<h3>To : <select name="to">')
+		for dictionary in data:
+			self.response.write('<option disabled>-------------</option>')
+			self.response.write('<option disabled>%s</option>' % dictionary['Name'])
+			for station in dictionary['Stations']:
+				self.response.write('<option>%s</option>' % station)
+		self.response.write('</select></h3><input type="submit" value="  Search Route  "></form>')
+
+		self.responser.write('<h3>Alternate worlds:</h3><ul>')
+		self.response.write('<li><a href="http://train-guidance-172817.appspot.com/">Tokyo</a></li>')
+		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/alice">Alice in Wonderland</a></li>')
+		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/nausica">風の谷のナウシカ</a></li>')
+		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/lotr">Middle Earth (Lord of the Rings)</a></li>')
+		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/"pokemon>Pokemon: Kanto Region</a></li>')
+
+		self.response.write('</ul></body>')
 
 
 class RoutePlanner(webapp2.RequestHandler):
@@ -166,7 +206,7 @@ class RoutePlanner(webapp2.RequestHandler):
 
 			self.response.write('</b><br>')
 			for station in route:
-				if station == (route[0] or route[len(route)-1]):
+				if station == route[0] or station == route[len(route)-1]:
 					self.response.write('>> <b style="color:cornflowerblue">%s</b>' % station)
 				else:
 					self.response.write('>> %s' % station)
@@ -181,12 +221,12 @@ class RoutePlanner(webapp2.RequestHandler):
 		self.response.write('<b>From: </b><b style="color:cornflowerblue">%s</b><br>' % start)
 		self.response.write('<b>To: </b><b style="color:cornflowerblue">%s</b><br>' % end)
 		if self.check_same_line(start, end):
-			self.response.write('<br><hr><b>No need to transfer.</b><hr><br><br>')
+			self.response.write('<br><hr><b>No need to transfer.</b><hr><br>')
 			self.print_route(start, end)
 		else:
 			self.plan(start, end)
 
-		self.response.write('<form action="http://train-guidance-172817.appspot.com/"><input type="submit" value=" Reset "></form>')
+		self.response.write('<br><form action="http://train-guidance-172817.appspot.com/"><input type="submit" value=" Reset "></form>')
 		self.response.write('</body>')		
 
 
