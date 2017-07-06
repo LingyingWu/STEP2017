@@ -287,6 +287,8 @@ class RoutePlanner(webapp2.RequestHandler):
 		intersection_line = (self.get_line(start) & self.get_line(end))
 		m = sys.maxint
 		for l in intersection_line:
+			start_index = self.get_index(start, self.get_whole_line(line)['Stations'])
+			end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
 			length = abs(start_index - end_index)
 			if length < m:
 				line = l
