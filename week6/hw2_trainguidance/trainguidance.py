@@ -37,11 +37,13 @@ class MainPage(webapp2.RequestHandler):
 
 class AliceMainPage(webapp2.RequestHandler):
 	def get(self):
+		global url
 		url = 'http://alice.fantasy-transit.appspot.com/net?format=json'
+		global data
 		data = json.load(urllib2.urlopen(url))
 		self.response.headers['Content-Type'] = 'text/html'
-		self.response.write('<title>Train Guidance</title>')
-		self.response.write('<body><form action="/search-result"><h1>Train Guidance: Alice in Wonderlan</h1>')
+		self.response.write('<title>Train Guidance: Alice in Wonderland</title>')
+		self.response.write('<body><form action="../search-result"><h1>Train Guidance: Alice in Wonderland</h1>')
 		self.response.write('<h3>From : <select name="from">')
 		for dictionary in data:
 			self.response.write('<option disabled>-------------</option>')
@@ -233,6 +235,5 @@ class RoutePlanner(webapp2.RequestHandler):
 app = webapp2.WSGIApplication([
 	('/', MainPage),
 	('/search-result', RoutePlanner),
-	('/alice',AliceMainPage),
-	('/alice/search-result', RoutePlanner)
+	('/alice',AliceMainPage)
 ], debug = True)
