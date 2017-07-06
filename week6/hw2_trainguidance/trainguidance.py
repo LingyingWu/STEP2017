@@ -28,6 +28,8 @@ class MainPage(webapp2.RequestHandler):
 				self.response.write('<option>%s</option>' % station)
 		self.response.write('</select></h3><input type="submit" value="  Search Route  "></form>')
 
+		self.response.write('<br><a href="http://fantasy-transit.appspot.com/map">Map</a>')
+
 		self.response.write('<h3>Alternate worlds:</h3><ul>')
 		self.response.write('<li><a href="../">Tokyo</a></li>')
 		self.response.write('<li><a href="../alice">Alice in Wonderland</a></li>')
@@ -61,6 +63,8 @@ class AliceMainPage(webapp2.RequestHandler):
 			for station in dictionary['Stations']:
 				self.response.write('<option>%s</option>' % station)
 		self.response.write('</select></h3><input type="submit" value="  Search Route  "></form>')
+
+		self.response.write('<br><a href="http://alice.fantasy-transit.appspot.com/map">Map</a>')
 
 		self.response.write('<h3>Alternate worlds:</h3><ul>')
 		self.response.write('<li><a href="../">Tokyo</a></li>')
@@ -96,7 +100,9 @@ class NausicaaMainPage(webapp2.RequestHandler):
 				self.response.write('<option>%s</option>' % station)
 		self.response.write('</select></h3><input type="submit" value="  Search Route  "></form>')
 
-		self.response.write('<h3>Alternate worlds:</h3><ul>')
+		self.response.write('<br><a href="http://nausicaa.fantasy-transit.appspot.com/map">Map</a>')
+
+		self.response.write('<br><h3>Alternate worlds:</h3><ul>')
 		self.response.write('<li><a href="../">Tokyo</a></li>')
 		self.response.write('<li><a href="../alice">Alice in Wonderland</a></li>')
 		self.response.write('<li><a href="../nausicaa">Nausicaa of the Valley of the wind</a></li>')
@@ -129,6 +135,8 @@ class LotrMainPage(webapp2.RequestHandler):
 			for station in dictionary['Stations']:
 				self.response.write('<option>%s</option>' % station)
 		self.response.write('</select></h3><input type="submit" value="  Search Route  "></form>')
+
+		self.response.write('<br><a href="http://lotr.fantasy-transit.appspot.com/map">Map</a>')
 
 		self.response.write('<h3>Alternate worlds:</h3><ul>')
 		self.response.write('<li><a href="../">Tokyo</a></li>')
@@ -163,6 +171,8 @@ class PokemonMainPage(webapp2.RequestHandler):
 			for station in dictionary['Stations']:
 				self.response.write('<option>%s</option>' % station)
 		self.response.write('</select></h3><input type="submit" value="  Search Route  "></form>')
+
+		self.response.write('<br><a href="http://pokemon.fantasy-transit.appspot.com/map">Map</a>')
 
 		self.response.write('<h3>Alternate worlds:</h3><ul>')
 		self.response.write('<li><a href="../">Tokyo</a></li>')
