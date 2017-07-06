@@ -284,41 +284,42 @@ class RoutePlanner(webapp2.RequestHandler):
 
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
-		if len(intersection_line) > 1:
-				self.response.write('There are %d ways to go to <b>%s</b>:<br>' % (len(intersection_line), end))
+		m = sys.maxint
+		for l in intersection_line:
+			length = abs(start_index - end_index)
+			if length < m:
+				line = l
 
-		for line in intersection_line:
-			self.response.write('<b style="color:orange">[ %s: ' % self.get_whole_line(line)['Name'])
-			start_index = self.get_index(start, self.get_whole_line(line)['Stations'])
-			end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
-			if start_index < end_index:
-				if (end_index-start_index) > (self.get_station_num(line)/2):
-					route = self.get_whole_line(line)['Stations'][end_index:]
-					for i in range(1, start_index+1):
-						route.append(self.get_whole_line(line)['Stations'][i])
-					route.reverse()
-					self.response.write('up ]')
-				else: 
-					route = self.get_whole_line(line)['Stations'][start_index:end_index+1]
-					self.response.write('down ]')
+		self.response.write('<b style="color:orange">[ %s: ' % self.get_whole_line(line)['Name'])
+		start_index = self.get_index(start, self.get_whole_line(line)['Stations'])
+		end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
+		if start_index < end_index:
+			if (end_index-start_index) > (self.get_station_num(line)/2):
+				route = self.get_whole_line(line)['Stations'][end_index:]
+				for i in range(1, start_index+1):
+					route.append(self.get_whole_line(line)['Stations'][i])
+				route.reverse()
+				self.response.write('up ]')
+			else: 
+				route = self.get_whole_line(line)['Stations'][start_index:end_index+1]
+				self.response.write('down ]')
+		else:
+			if (start_index-end_index) > (self.get_station_num(line)/2):
+				route = self.get_whole_line(line)['Stations'][start_index:]
+				for i in range(1, end_index+1):
+					route.append(self.get_whole_line(line)['Stations'][i])
+				self.response.write('down ]')
 			else:
-				if (start_index-end_index) > (self.get_station_num(line)/2):
-					route = self.get_whole_line(line)['Stations'][start_index:]
-					for i in range(1, end_index+1):
-						route.append(self.get_whole_line(line)['Stations'][i])
-					self.response.write('down ]')
-				else:
-					route = self.get_whole_line(line)['Stations'][end_index:start_index+1]
-					route.reverse()
-					self.response.write('up ]')
+				route = self.get_whole_line(line)['Stations'][end_index:start_index+1]
+				route.reverse()
+				self.response.write('up ]')
 
-			self.response.write('</b><br>')
-			for station in route:
-				if station == route[0] or station == route[len(route)-1]:
-					self.response.write('>> <b style="color:cornflowerblue">%s</b>' % station)
-				else:
-					self.response.write('>> %s' % station)
-			self.response.write('<br>')
+		self.response.write('</b><br>')
+		for station in route:
+			if station == route[0] or station == route[len(route)-1]:
+				self.response.write('>> <b style="color:cornflowerblue">%s</b>' % station)
+			else:
+				self.response.write('>> %s' % station)
 
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
