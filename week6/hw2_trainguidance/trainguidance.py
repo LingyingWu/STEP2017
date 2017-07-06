@@ -28,7 +28,7 @@ class MainPage(webapp2.RequestHandler):
 
 		self.response.write('<h3>Alternate worlds:</h3><ul>')
 		self.response.write('<li><a href="http://train-guidance-172817.appspot.com/">Tokyo</a></li>')
-		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/alice">Alice in Wonderland</a></li>')
+		self.response.write('<li><a href="http://train-guidance-172817.appspot.com/alice">Alice in Wonderland</a></li>')
 		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/nausicaa">Nausicaa of the Valley of the wind</a></li>')
 		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/lotr">Middle Earth (Lord of the Rings)</a></li>')
 		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/"pokemon>Pokemon: Kanto Region</a></li>')
@@ -60,7 +60,7 @@ class AliceMainPage(webapp2.RequestHandler):
 
 		self.response.write('<h3>Alternate worlds:</h3><ul>')
 		self.response.write('<li><a href="http://train-guidance-172817.appspot.com/">Tokyo</a></li>')
-		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/alice">Alice in Wonderland</a></li>')
+		self.response.write('<li><a href="http://train-guidance-172817.appspot.com/alice">Alice in Wonderland</a></li>')
 		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/nausica">Nausicaa of the Valley of the wind</a></li>')
 		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/lotr">Middle Earth (Lord of the Rings)</a></li>')
 		#self.response.write('<li><a href="http://train-guidance-172817.appspot.com/"pokemon>Pokemon: Kanto Region</a></li>')
