@@ -26,7 +26,7 @@ class MainPage(webapp2.RequestHandler):
 			self.response.write('<option disabled>%s</option>' % dictionary['Name'])
 			for station in dictionary['Stations']:
 				self.response.write('<option>%s</option>' % station)
-		self.response.write('</select></h3><input type=submit value="  Search Route  ">')
+		self.response.write('</select></h3><input type="submit" value="  Search Route  "></form>')
 		self.response.write('</body>')
 
 
@@ -84,12 +84,12 @@ class RoutePlanner(webapp2.RequestHandler):
 				line_set.add(line)
 		return line_set
 
-	def recommend_line(self, start, end): # return a list of recommend lines
+	def transfer_line(self, start, end): # return a list of lines have to transfer
 		current_lines = self.get_line(start)
 		end_lines = self.get_line(end)
 		count = 0
 		route_line = []
-		rec_line = []
+		trans_line = []
 
 		while not self.check_in_line(current_lines, end):
 			route_line.append(current_lines)
@@ -100,20 +100,20 @@ class RoutePlanner(webapp2.RequestHandler):
 			count += 1
 
 		last_line = ''
-		for line in (end_lines & current_lines):
+		for line in (end_lines & current_lines): # initialize
 			last_line = line
-		rec_line.append(last_line)
+		trans_line.append(last_line)
 
 		for line_set in route_line[::-1]:
 			for line in (line_set & self.transferable_line(last_line)):
 				last_line = line
-			rec_line.append(line)
+			trans_line.append(line)
 
-		rec_line.reverse()
+		trans_line.reverse()
 		if count != 0:
 			self.response.write('<br><hr>Need to transfer %d time(s).' %count)
 
-		return rec_line
+		return trans_line
 
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
@@ -150,7 +150,7 @@ class RoutePlanner(webapp2.RequestHandler):
 					self.response.write('>> %s<br>' % station)
 
 	def plan(self, start, end):
-		next_line = self.recommend_line(start, end)
+		next_line = self.transfer_line(start, end)
 		route = []
 		transfer_station = {}
 
@@ -187,6 +187,8 @@ class RoutePlanner(webapp2.RequestHandler):
 			self.print_route(start, end)
 		else:
 			self.plan(start, end)
+
+		self.response.write('<form action="/"><input type="reset" value=" Reset "></form>')
 		self.response.write('</body>')		
 
 
