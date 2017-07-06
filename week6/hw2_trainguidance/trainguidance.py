@@ -199,7 +199,7 @@ class RoutePlanner(webapp2.RequestHandler):
 	def chcek_circle(self, line):
 		origin = self.get_whole_line(line)['Stations'][0]
 		terminal = self.get_whole_line(line)['Stations'][self.get_station_num(line)-1]
-		if origin == terminal
+		if origin == terminal:
 			return True
 		else False
 
