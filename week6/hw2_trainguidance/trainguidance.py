@@ -341,9 +341,9 @@ class RoutePlanner(webapp2.RequestHandler):
 		self.response.write('</b><br>')
 		for station in route:
 			if station == route[0] or station == route[len(route)-1]:
-				self.response.write('>> <b style="color:cornflowerblue">%s </b>' % station)
+				self.response.write('>> <b style="color:cornflowerblue">%s <br></b>' % station)
 			else:
-				self.response.write('>> %s ' % station)
+				self.response.write('>> %s <br>' % station)
 
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
