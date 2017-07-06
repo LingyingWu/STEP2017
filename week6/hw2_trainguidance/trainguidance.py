@@ -196,7 +196,7 @@ class RoutePlanner(webapp2.RequestHandler):
 	def get_station_num(self, line):
 		return len(self.get_whole_line(line)['Stations'])
 
-	def chcek_circle(self, line):
+	def check_circle(self, line):
 		origin = self.get_whole_line(line)['Stations'][0]
 		terminal = self.get_whole_line(line)['Stations'][self.get_station_num(line)-1]
 		if origin == terminal:
