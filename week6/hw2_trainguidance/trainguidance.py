@@ -181,10 +181,10 @@ class RoutePlanner(webapp2.RequestHandler):
 
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
+		if len(intersection_line) > 1:
+				self.response.write('There are %d ways to go to <b>%s</b><br>' % (len(intersection_line), end))
+				
 		for line in intersection_line:
-			if len(intersection_line) > 1:
-				self.response.write('<b>There are %d ways to go to %s</b>' % (len(intersection_line), end))
-
 			self.response.write('<b style="color:orange">[ %s: ' % self.get_whole_line(line)['Name'])
 			start_index = self.get_index(start, self.get_whole_line(line)['Stations'])
 			end_index = self.get_index(end, self.get_whole_line(line)['Stations'])
