@@ -283,7 +283,7 @@ class RoutePlanner(webapp2.RequestHandler):
 			route.append(end)
 			for i in range(0, len(route)-1):
 				if i != 0:
-					self.response.write('<br><b style="color:orange">Tranfer to >> </b>')
+					self.response.write('<br><b style="color:orange">Tranfer to: </b>')
 				self.print_route(route[i], route[i+1])
 
 	def print_route(self, start, end):
