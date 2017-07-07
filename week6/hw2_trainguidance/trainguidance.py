@@ -279,28 +279,29 @@ class RoutePlanner(webapp2.RequestHandler):
 		return trans_line
 
 	def plan(self, start, end):
-		next_line = self.transfer_line(start, end)
+		trans_line = self.transfer_line(start, end)
 		route = []
 		transfer_station = {}
 
-		for index in range(len(next_line)-1):
-			transfer = self.get_intersection_station(next_line[index], next_line[index+1])
-			transfer_station[(next_line[index], next_line[index+1])] = transfer
+		for index in range(len(trans_line)-1):
+			transfer = self.get_intersection_station(trans_line[index], trans_line[index+1])
+			transfer_station[(trans_line[index], trans_line[index+1])] = transfer
 			route.append(transfer[0])
-		if len(transfer_station) != 0:
-			self.response.write('<br>Transfer Stations(s): ')
-			for station in route:
-				self.response.write('<b style="color:chocolate"> %s </b>'% station)
-				if station != route[len(route)-1]:
-					self.response.write('and')
-			self.response.write('<hr><br>')
 
-			route.insert(0, start)
-			route.append(end)
-			for i in range(0, len(route)-1):
-				if i != 0:
-					self.response.write('<br><b style="color:orange">Tranfer to: </b>')
-				self.print_route(route[i], route[i+1])
+		#if len(transfer_station) != 0:
+		self.response.write('<br>Transfer Stations(s): ')
+		for station in route:
+			self.response.write('<b style="color:chocolate"> %s </b>'% station)
+			if station != route[len(route)-1]:
+				self.response.write('and')
+		self.response.write('<hr><br>')
+
+		route.insert(0, start)
+		route.append(end)
+		for i in range(len(route)-1):
+			if i != 0:
+				self.response.write('<br><b style="color:orange">Tranfer to: </b>')
+			self.print_route(route[i], route[i+1])
 
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
@@ -343,7 +344,7 @@ class RoutePlanner(webapp2.RequestHandler):
 			if station == route[0] or station == route[len(route)-1]:
 				self.response.write('>> <b style="color:cornflowerblue">%s <br></b>' % station)
 			else:
-				self.response.write('>> %s <br>' % station)
+				self.response.write('|| %s <br>' % station)
 
 	def get(self):
 		self.response.headers['Content-Type'] = 'text/html'
