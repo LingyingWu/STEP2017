@@ -1,5 +1,6 @@
 # Description of programs
 Implement applications using __Google App Engine__  
+[This page](https://github.com/LingyingWu/hw6) includes the initial templates of the programs.  
 
 ### 課題１：[パタトクカシーー](http://fantasy-transit.appspot.com/pata) (example)  
 Problem: alternate one letter from each of two words and handle words with different length  
