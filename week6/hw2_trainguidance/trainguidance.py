@@ -191,18 +191,18 @@ class PokemonMainPage(webapp2.RequestHandler):
 
 
 class RoutePlanner(webapp2.RequestHandler):
-	def get_line(self, target): # get the line of target station
+	def get_whole_line(self, line): # get the whole dictionary of the line
+		for dictionary in data:
+			if dictionary['Name'] == line:
+				return dictionary
+
+	def get_line(self, target): # get the lines of target station
 		line = set([])
 		for dictionary in data:
 			for station in dictionary['Stations']:
 				if station == target:
 					line.add(dictionary['Name'])
 		return line
-
-	def get_whole_line(self, line): # get the whole dictionary of the line
-		for dictionary in data:
-			if dictionary['Name'] == line:
-				return dictionary
 
 	def get_index(self, target, list):
 		for index in range(len(list)):
@@ -211,6 +211,16 @@ class RoutePlanner(webapp2.RequestHandler):
 
 	def get_station_num(self, line):
 		return len(self.get_whole_line(line)['Stations'])
+
+	def get_intersection_station(self, a, b):
+		line_a = set()
+		line_b = set()
+		for station in self.get_whole_line(a)['Stations']:
+			line_a.add(station)
+		for station in self.get_whole_line(b)['Stations']:
+			line_b.add(station)
+		intersection_station = [i for i in (line_a & line_b)]
+		return intersection_station
 
 	def check_circle(self, line):
 		origin = self.get_whole_line(line)['Stations'][0]
@@ -233,17 +243,7 @@ class RoutePlanner(webapp2.RequestHandler):
 				return True
 		return False
 
-	def get_intersection_station(self, a, b):
-		line_a = set()
-		line_b = set()
-		for station in self.get_whole_line(a)['Stations']:
-			line_a.add(station)
-		for station in self.get_whole_line(b)['Stations']:
-			line_b.add(station)
-		intersection_station = [i for i in (line_a & line_b)]
-		return intersection_station
-
-	def transferable_line(self, line): # return set of lines can be transferred through the given line
+	def transferable_line(self, line): # return a set of lines can be transferred when taking the given line
 		line_set = set()
 		for station in self.get_whole_line(line)['Stations']:
 			for line in self.get_line(station):
@@ -271,8 +271,8 @@ class RoutePlanner(webapp2.RequestHandler):
 			for line in (line_set & self.transferable_line(last_line)):
 				last_line = line
 			trans_line.append(line)
-
 		trans_line.reverse()
+
 		if count != 0:
 			self.response.write('<br><hr>Need to transfer %d time(s).' %count)
 
@@ -283,9 +283,9 @@ class RoutePlanner(webapp2.RequestHandler):
 		route = []
 		transfer_station = {}
 
-		for index in range(1, len(next_line)):
-			transfer = self.get_intersection_station(next_line[index-1], next_line[index])
-			transfer_station[(next_line[index-1], next_line[index])] = transfer
+		for index in range(len(next_line)-1):
+			transfer = self.get_intersection_station(next_line[index], next_line[index+1])
+			transfer_station[(next_line[index], next_line[index+1])] = transfer
 			route.append(transfer[0])
 		if len(transfer_station) != 0:
 			self.response.write('<br>Transfer Stations(s): ')
