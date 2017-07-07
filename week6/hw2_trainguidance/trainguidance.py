@@ -288,7 +288,6 @@ class RoutePlanner(webapp2.RequestHandler):
 			transfer_station[(trans_line[index], trans_line[index+1])] = transfer
 			route.append(transfer[0])
 
-		#if len(transfer_station) != 0:
 		self.response.write('<br>Transfer Stations(s): ')
 		for station in route:
 			self.response.write('<b style="color:chocolate"> %s </b>'% station)
