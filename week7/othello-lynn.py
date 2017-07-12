@@ -106,6 +106,9 @@ def prettyMove(moce):
 
 
 class MainHandler(webapp2.RequestHandler):
+	# Handling GET request, just for debugging purposes.
+    # If you open this handler directly, it will show you the HTML form here 
+    # and let you copy-paste some game's JSON here for testing.
 	def get(self):
 		if not self.request.get('json'):
 			self.response.write("""
