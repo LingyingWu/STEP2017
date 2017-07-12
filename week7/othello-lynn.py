@@ -15,9 +15,9 @@ class Game:
 	def __init__(self, body=None, board=None): # Take json or a board directly
 		if body:
 			game = json.loads(body)
-            self._board = game["board"]
+			self._board = game["board"]
         else:
-            self._board = board
+			self._board = board
 
     def position(self, x, y): # Return piece on the board
     	# 0 for no pieces, 1 for player1, 2 for player2, None for coordicate out of scope
