@@ -16,7 +16,7 @@ class Game:
 		if body:
 			game = json.loads(body)
 			self._board = game["board"]
-        else:
+		else:
 			self._board = board
 
     def position(self, x, y): # Return piece on the board
