@@ -68,13 +68,14 @@ class Game:
  		newBoard = copy.deepcopy(self._board)
 		pieces = newBoard["Pieces"]
 
-		if not (self._updateBoardDirection(pieces, x, y, 1, 0)) or self._updateBoardDirection(pieces, x, y, 0, 1)
+		if not (self._updateBoardDirection(pieces, x, y, 1, 0)
+			or self._updateBoardDirection(pieces, x, y, 0, 1)
 			or self._updateBoardDirection(pieces, x, y, -1, 0)
 			or self._updateBoardDirection(pieces, x, y, 0, -1)
 			or self._updateBoardDirection(pieces, x, y, 1, 1)
 			or self._updateBoardDirection(pieces, x, y, -1, 1)
 			or self._updateBoardDirection(pieces, x, y, 1, -1)
-			or self._updateBoardDirection(pieces, x, y, -1, -1):
+			or self._updateBoardDirection(pieces, x, y, -1, -1)):
 			return None # Move is valid
 
 		newBoard["Next"] = 3 - self.Next()
