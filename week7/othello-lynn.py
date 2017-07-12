@@ -79,7 +79,7 @@ class Game:
 			return None # Move is valid
 
 		newBoard["Next"] = 3 - self.next()
-		return Game(board = newBoard)
+		return newBoard
 
 
 def position(board, x, y):
@@ -92,7 +92,7 @@ def setPos(board, x, y, piece): # Set piece on the board at (x,y) coordinate
 		return False
 	board[y-1][x-1] = piece
 
-def prettyPrint(board, nl="<br>"): # Debug function to pretty print the array representation of bard.
+def prettyPrint(board, nl="<br>"): # Debug function to pretty print the array representation of board.
 	s = ""
 	for row in board:
 		for piece in row:
