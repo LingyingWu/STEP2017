@@ -302,6 +302,16 @@ class RoutePlanner(webapp2.RequestHandler):
 				self.response.write('<br><b style="color:orange">Tranfer to: </b>')
 			self.print_route(route[i], route[i+1])
 
+	# def bfs(self, graph, start, end):
+	# 	visited = set()
+	# 	queue = [start]
+	# 	while queue:
+	# 		station = queue.pop(0)
+	# 		if station not in visited:
+	# 			visited.add(station)
+	# 			queue.extend(graph[station]-visited)
+	# 	retirn vistied
+
 	def print_route(self, start, end):
 		intersection_line = (self.get_line(start) & self.get_line(end))
 		m = sys.maxint
