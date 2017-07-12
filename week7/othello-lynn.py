@@ -24,7 +24,7 @@ class Game:
 		return position(self._board["Pieces"], x, y)
 
 	def next(self): # Return who plays next
-		return self.board["Next"]
+		return self._board["Next"]
 
 	def validMoves(self): # Return the array of valid moves for next player
 		moves = []
