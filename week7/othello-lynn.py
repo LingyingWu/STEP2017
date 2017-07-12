@@ -141,7 +141,7 @@ class MainHandler(webapp2.RequestHandler):
 		if len(valid_moves) == 0:
 			self.response.write("PASS")
 		else:
-			if self.pieceNum() < 10:
+			if self.pieceNum() < 16:
 				move = random.choice(valid_moves) # pick randomly
 			else:
 				move = self.choose(g)
