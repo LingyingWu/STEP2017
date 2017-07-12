@@ -12,7 +12,7 @@ import webapp2
 # Read json description of the board and provides simple interface.
 
 class Game:
-	def __init__(self, body=None, board=None): # Takesjson or a board directly
+	def __init__(self, body=None, board=None): # Take json or a board directly
 		if body:
 			game = json.loads(body)
             self._board = game["board"]
@@ -126,7 +126,7 @@ class MainHandler(webapp2.RequestHandler):
 		self.pickMove(g)
 
 	def pickMove(self, g):
-		valid_moves = g.validMoves() # Get all calid moves.
+		valid_moves = g.validMoves() # Get all valid moves.
 		if len(valid_moves) == 0:
 			self.response.write("PASS")
 		else:
