@@ -134,7 +134,7 @@ class MainHandler(webapp2.RequestHandler):
 			self.response.write("PASS")
 		else:
 			#move = random.choice(valid_moves) # pick randomly
-			move = greedy(g)
+			move = self.greedy(g)
 			self.response.write(prettyMove(move))
 
 	def greedy(self, g):
@@ -144,7 +144,8 @@ class MainHandler(webapp2.RequestHandler):
 			nextBoard = g.nextBoardPosition(move)
 			score = self.score(nextBoard)
 			me[score[0]] = move
-			opponent[score[0]] = move
+			opponent[score[1]] = move
+
 		if g.next() == 1:
 			best = max(me)
 			return me[best]
