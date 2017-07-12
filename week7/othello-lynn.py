@@ -19,67 +19,67 @@ class Game:
 		else:
 			self._board = board
 
-    def position(self, x, y): # Return piece on the board
-    	# 0 for no pieces, 1 for player1, 2 for player2, None for coordicate out of scope
-    	return position(self._board["Pieces"], x, y)
+	def position(self, x, y): # Return piece on the board
+		# 0 for no pieces, 1 for player1, 2 for player2, None for coordicate out of scope
+		return position(self._board["Pieces"], x, y)
 
-    def next(self): # Return who plays next
-    	return self.board["Next"]
+	def next(self): # Return who plays next
+		return self.board["Next"]
 
-    def validMoves(self): # Return the array of valid moves for next player
-    	moves = []
-    	for y in xrange(1,9):
-    		for x in xrange(1,9):
-    			# Each move is a dict, "As": next player
-    			move = {"Where": [x,y]. "As": self.next()}
-    			if self.nextBoardPosition(move):
-    				moves.append(move)
-    	return moves
+	def validMoves(self): # Return the array of valid moves for next player
+		moves = []
+		for y in xrange(1,9):
+			for x in xrange(1,9):
+				# Each move is a dict, "As": next player
+				move = {"Where": [x,y]. "As": self.next()}
+				if self.nextBoardPosition(move):
+					moves.append(move)
+		return moves
 
-    def _updateBoardDirection(self, newBoard, x, y, delta_x, delta_y): # Hepler function of nextBoardPosition.
-    	# It looks towards (delta_x, delta_y) direction for one of our own pieces
-    	# and flips pieces in between if the move is valid.
-    	# Return True if pieces are captured in this direction.
-    	player = self.next()
-    	opponent = 3 - player
-    	look_x = x + delta_x
-    	look_y = y + delta_y
-    	flip_list = []
-    	while position(newBoard, look_x, look_y) == opponent:
-    		flip_list.append([look_x, look_y])
-    		look_x += delta_x
-    		look_y += delta_y
+	def _updateBoardDirection(self, newBoard, x, y, delta_x, delta_y): # Hepler function of nextBoardPosition.
+		# It looks towards (delta_x, delta_y) direction for one of our own pieces
+		# and flips pieces in between if the move is valid.
+		# Return True if pieces are captured in this direction.
+		player = self.next()
+		opponent = 3 - player
+		look_x = x + delta_x
+		look_y = y + delta_y
+		flip_list = []
+		while position(newBoard, look_x, look_y) == opponent:
+			flip_list.append([look_x, look_y])
+			look_x += delta_x
+			look_y += delta_y
 
-    	if position(newBoard, look_x, look_y) == player and len(flip_list) > 0:
-    		setPos(newBoard, x, y, player)
-    		for flip_move in flip_list:
-    			flip_x = flip_move[0]
-    			flip_y = flip_move[1]
-    			setPos(newBoard, flip_x, flip_y, player)
-    		return True
-    	return False
+		if position(newBoard, look_x, look_y) == player and len(flip_list) > 0:
+			setPos(newBoard, x, y, player)
+			for flip_move in flip_list:
+				flip_x = flip_move[0]
+				flip_y = flip_move[1]
+				setPos(newBoard, flip_x, flip_y, player)
+			return True
+		return False
 
-    def nextBoardPosition(self, move):
-    	x = move["Where"][0]
-    	y = move["Where"][1]
-    	if self.position(x, y) != 0: # the position already occupied
-    		return None
+	def nextBoardPosition(self, move):
+		x = move["Where"][0]
+		y = move["Where"][1]
+		if self.position(x, y) != 0: # the position already occupied
+			return None
 
-    	newBoard = copy.deepcopy(self._board)
-    	pieces = newBoard["Pieces"]
+ 		newBoard = copy.deepcopy(self._board)
+		pieces = newBoard["Pieces"]
 
-    	if not (self._updateBoardDirection(pieces, x, y, 1, 0))
-    		| self._updateBoardDirection(pieces, x, y, 0, 1)
-    		| self._updateBoardDirection(pieces, x, y, -1, 0)
-    		| self._updateBoardDirection(pieces, x, y, 0, -1)
-    		| self._updateBoardDirection(pieces, x, y, 1, 1)
-    		| self._updateBoardDirection(pieces, x, y, -1, 1)
-    		| self._updateBoardDirection(pieces, x, y, 1, -1)
-    		| self._updateBoardDirection(pieces, x, y, -1, -1):
-    		return None # Move is valid
+		if not (self._updateBoardDirection(pieces, x, y, 1, 0))
+			| self._updateBoardDirection(pieces, x, y, 0, 1)
+			| self._updateBoardDirection(pieces, x, y, -1, 0)
+			| self._updateBoardDirection(pieces, x, y, 0, -1)
+			| self._updateBoardDirection(pieces, x, y, 1, 1)
+			| self._updateBoardDirection(pieces, x, y, -1, 1)
+			| self._updateBoardDirection(pieces, x, y, 1, -1)
+			| self._updateBoardDirection(pieces, x, y, -1, -1):
+			return None # Move is valid
 
-    	newBoard["Next"] = 3 - self.Next()
-    	return Game(board = newBoard)
+		newBoard["Next"] = 3 - self.Next()
+		return Game(board = newBoard)
 
 
 def position(board, x, y):
@@ -139,5 +139,5 @@ class MainHandler(webapp2.RequestHandler):
 
 
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+	('/', MainHandler)
 ], debug=True)
