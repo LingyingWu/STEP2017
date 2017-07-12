@@ -28,7 +28,7 @@ class Game:
 		for row in self._board:
 			for piece in row:
 				if piece == 1 or piece == 2:
-					count++
+					count += 1
 		return count
 
 	def next(self): # Return who plays next
@@ -181,21 +181,21 @@ class MainHandler(webapp2.RequestHandler):
 
 		# Corner occupncy
 		if board[0][0] == player:
-			player_score++
+			player_score += 1
 		elif board[0][0] == opponent:
-			opponent_score++
+			opponent_score += 1
 		if board[0][7] == player:
-			player_score++
+			player_score += 1
 		elif board[0][7] == opponent:
-			opponent_score++
+			opponent_score += 1
 		if board[7][0] == player:
-			player_score++
+			player_score += 1
 		elif board[7][0] == opponent:
-			opponent_score++
+			opponent_score += 1
 		if board[7][7] == player:
-			player_score++
+			player_score += 1
 		elif board[7][7] == opponent:
-			opponent_score++
+			opponent_score += 1
 		corner = 25 * (player_score - opponent_score)
 
 		# Corner neighber
