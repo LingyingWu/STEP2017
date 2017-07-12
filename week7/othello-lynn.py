@@ -31,7 +31,7 @@ class Game:
 		for y in xrange(1,9):
 			for x in xrange(1,9):
 				# Each move is a dict, "As": next player
-				move = {"Where": [x,y]. "As": self.next()}
+				move = {"Where": [x,y], "As": self.next()}
 				if self.nextBoardPosition(move):
 					moves.append(move)
 		return moves
