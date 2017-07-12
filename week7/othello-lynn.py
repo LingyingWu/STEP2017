@@ -19,11 +19,11 @@ class Game:
         else:
             self._board = board
 
-    def Position(self, x, y): # Return piece on the board
+    def position(self, x, y): # Return piece on the board
     	# 0 for no pieces, 1 for player1, 2 for player2, None for coordicate out of scope
-    	return Position(self._board["Pieces"], x, y)
+    	return position(self._board["Pieces"], x, y)
 
-    def Next(self): # Return who plays next
+    def next(self): # Return who plays next
     	return self.board["Next"]
 
     def validMoves(self): # Return the array of valid moves for next player
@@ -31,8 +31,8 @@ class Game:
     	for y in xrange(1,9):
     		for x in xrange(1,9):
     			# Each move is a dict, "As": next player
-    			move = {"Where": [x,y]. "As": self.Next()}
-    			if self.NextBoardPosition(move):
+    			move = {"Where": [x,y]. "As": self.next()}
+    			if self.nextBoardPosition(move):
     				moves.append(move)
     	return moves
 
@@ -40,17 +40,17 @@ class Game:
     	# It looks towards (delta_x, delta_y) direction for one of our own pieces
     	# and flips pieces in between if the move is valid.
     	# Return True if pieces are captured in this direction.
-    	player = self.Next()
+    	player = self.next()
     	opponent = 3 - player
     	look_x = x + delta_x
     	look_y = y + delta_y
     	flip_list = []
-    	while Position(newBoard, look_x, look_y) == opponent:
+    	while position(newBoard, look_x, look_y) == opponent:
     		flip_list.append([look_x, look_y])
     		look_x += delta_x
     		look_y += delta_y
 
-    	if Position(newBoard, look_x, look_y) == player and len(flip_list) > 0:
+    	if position(newBoard, look_x, look_y) == player and len(flip_list) > 0:
     		setPos(newBoard, x, y, player)
     		for flip_move in flip_list:
     			flip_x = flip_move[0]
@@ -62,7 +62,7 @@ class Game:
     def nextBoardPosition(self, move):
     	x = move["Where"][0]
     	y = move["Where"][1]
-    	if self.Position(x, y) != 0: # the position already occupied
+    	if self.position(x, y) != 0: # the position already occupied
     		return None
 
     	newBoard = copy.deepcopy(self._board)
@@ -82,7 +82,7 @@ class Game:
     	return Game(board = newBoard)
 
 
-def Position(board, x, y):
+def position(board, x, y):
 	if x >= 1 and x <= 8 and y >= 1 and y <= 8:
 		return board[y-1][x-1]
 	return None
@@ -130,7 +130,7 @@ class MainHandler(webapp2.RequestHandler):
 		if len(valid_moves) == 0:
 			self.response.write("PASS")
 		else:
-			move = random.choice(valid_moves)
+			move = random.choice(valid_moves) # pick randomly
 			self.response.write(prettyMove(move))
 
 
