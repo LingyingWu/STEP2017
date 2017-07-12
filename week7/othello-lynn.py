@@ -133,9 +133,38 @@ class MainHandler(webapp2.RequestHandler):
 		if len(valid_moves) == 0:
 			self.response.write("PASS")
 		else:
-			move = random.choice(valid_moves) # pick randomly
+			#move = random.choice(valid_moves) # pick randomly
+			move = greedy(g)
 			self.response.write(prettyMove(move))
 
+	def greedy(self, g):
+		me = {}
+		opponent = {}
+		for move in g.validMoves():
+			nextBoard = g.nextBoardPosition(move)
+			score = self.score(nextBoard)
+			me[score[0]] = move
+			opponent[score[0]] = move
+		if g.next() == 1:
+			best = max(me)
+			return me[best]
+		else:
+			best = max(opponent)
+			return opponent[best]
+
+
+	def score(self):
+		me = 0
+		opponent = 0
+		for row in board:
+			for piece in row:
+				if piece == 1:
+					me += 1
+				elif piece == 2:
+					opponent += 1
+				else:
+					continue
+		return me, opponent
 
 
 app = webapp2.WSGIApplication([
