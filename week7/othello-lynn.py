@@ -154,7 +154,7 @@ class MainHandler(webapp2.RequestHandler):
 			return opponent[best]
 
 
-	def score(self):
+	def score(self, board):
 		me = 0
 		opponent = 0
 		for row in board:
