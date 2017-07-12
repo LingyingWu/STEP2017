@@ -23,6 +23,14 @@ class Game:
 		# 0 for no pieces, 1 for player1, 2 for player2, None for coordicate out of scope
 		return position(self._board["Pieces"], x, y)
 
+	def pieceNum(self): # Return number of pieces on the board
+		count = 0
+		for row in self._board:
+			for piece in row:
+				if piece == 1 or piece == 2:
+					count++
+		return count
+
 	def next(self): # Return who plays next
 		return self._board["Next"]
 
@@ -133,8 +141,10 @@ class MainHandler(webapp2.RequestHandler):
 		if len(valid_moves) == 0:
 			self.response.write("PASS")
 		else:
-			# move = random.choice(valid_moves) # pick randomly
-			move = self.choose(g)
+			if self.pieceNum() < 10:
+				move = random.choice(valid_moves) # pick randomly
+			else:
+				move = self.choose(g)
 			self.response.write(prettyMove(move))
 
 	def choose(self, g):
