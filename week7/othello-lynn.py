@@ -142,7 +142,7 @@ class MainHandler(webapp2.RequestHandler):
 		opponent = {}
 		for move in g.validMoves():
 			nextBoard = g.nextBoardPosition(move)
-			score = self.score(nextBoard)
+			score = self.heuristicScore(nextBoard)
 			me[score[0]] = move
 			opponent[score[1]] = move
 
@@ -154,7 +154,7 @@ class MainHandler(webapp2.RequestHandler):
 			return opponent[best]
 
 
-	def score(self, board):
+	def heuristicScore(self, board):
 		me = 0
 		opponent = 0
 		for row in board:
