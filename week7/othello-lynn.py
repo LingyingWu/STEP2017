@@ -101,7 +101,7 @@ def prettyPrint(board, nl="<br>"): # Debug function to pretty print the array re
 	return s
 
 def prettyMove(move):
-	m -= move["Where"]
+	m = move["Where"]
 	return '%s%d' % (chr(ord('A') + m[0]-1), m[1])
 
 
