@@ -76,7 +76,7 @@ class Game:
 			or self._updateBoardDirection(pieces, x, y, -1, 1)
 			or self._updateBoardDirection(pieces, x, y, 1, -1)
 			or self._updateBoardDirection(pieces, x, y, -1, -1)):
-			return None # Move is valid
+			return None # Move is invalid
 
 		newBoard["Next"] = 3 - self.next()
 		return newBoard
@@ -133,39 +133,64 @@ class MainHandler(webapp2.RequestHandler):
 		if len(valid_moves) == 0:
 			self.response.write("PASS")
 		else:
-			#move = random.choice(valid_moves) # pick randomly
-			move = self.greedy(g)
+			# move = random.choice(valid_moves) # pick randomly
+			move = self.choose(g)
 			self.response.write(prettyMove(move))
 
-	def greedy(self, g):
-		me = {}
-		opponent = {}
+	def choose(self, g):
+		player = {}
 		for move in g.validMoves():
 			nextBoard = g.nextBoardPosition(move)
 			score = self.heuristicScore(nextBoard)
-			me[score[0]] = move
-			opponent[score[1]] = move
+			player[score] = move
 
-		if g.next() == 1:
-			best = max(me)
-			return me[best]
-		else:
-			best = max(opponent)
-			return opponent[best]
+		best = max(player)
+		return player[best]
 
 
 	def heuristicScore(self, board):
-		me = 0
-		opponent = 0
+		player = self.next()
+		opponent = 3 - player
+		player_score = 0
+		opponent_score = 0
 		for row in board:
 			for piece in row:
-				if piece == 1:
-					me += 1
-				elif piece == 2:
-					opponent += 1
+				if piece == player:
+					player_score += 1
+				elif piece == opponent:
+					opponent_score += 1
 				else:
 					continue
-		return me, opponent
+		return player_score
+
+	def coinParity(self, board):
+		player = self.next()
+		opponent = 3 - player
+		player_score = 0
+		opponent_score = 0
+
+		# Corner occupncy
+		if board[0][0] == player:
+			player_score++
+		elif board[0][0] == opponent:
+			opponent_score++
+		if board[0][7] == player:
+			player_score++
+		elif board[0][7] == opponent:
+			opponent_score++
+		if board[7][0] == player:
+			player_score++
+		elif board[7][0] == opponent:
+			opponent_score++
+		if board[7][7] == player:
+			player_score++
+		elif board[7][7] == opponent:
+			opponent_score++
+		corner = 25 * (player_score - opponent_score)
+
+		# Corner neighber
+		mine = 0
+		opponent = 0
 
 
 app = webapp2.WSGIApplication([
