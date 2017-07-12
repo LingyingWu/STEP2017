@@ -78,7 +78,7 @@ class Game:
 			or self._updateBoardDirection(pieces, x, y, -1, -1)):
 			return None # Move is valid
 
-		newBoard["Next"] = 3 - self.Next()
+		newBoard["Next"] = 3 - self.next()
 		return Game(board = newBoard)
 
 
