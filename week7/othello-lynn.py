@@ -171,7 +171,7 @@ class MainHandler(webapp2.RequestHandler):
 	def heuristicScore(self, game, board):
 		next_player = game.next()
 		if game.pieceNum() == 63: # last move
-			score = self.coinParity(board)
+			score = self.coinParity(board, next_player)
 		else:
 			score = self.coinParity(board, next_player) + self.corner(board, next_player) + self.mobility(game)
 		return score
