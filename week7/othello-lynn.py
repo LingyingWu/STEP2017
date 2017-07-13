@@ -273,7 +273,7 @@ class MainHandler(webapp2.RequestHandler):
 				opponent_score += 1
 		score_neighbor = (player_score-opponent_score)/(player_score+opponent_score)
 
-		return 50 * score + 20 * score_neighbor
+		return 50 * score + 10 * score_neighbor
 
 	def mobility(self, game):
 		player_score = len(game.validMoves())
