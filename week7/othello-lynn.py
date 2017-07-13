@@ -44,6 +44,17 @@ class Game:
 					moves.append(move)
 		return moves
 
+	def validMoves_opponent(self):
+		moves = []
+		opponent = 3 - self.next()
+		for y in xrange(1,9):
+			for x in xrange(1,9):
+				# Each move is a dict, "As": next player
+				move = {"Where": [x,y], "As": opponent}
+				if self.nextBoardPosition(move):
+					moves.append(move)
+		return moves
+
 	def _updateBoardDirection(self, newBoard, x, y, delta_x, delta_y): # Hepler function of nextBoardPosition.
 		# It looks towards (delta_x, delta_y) direction for one of our own pieces
 		# and flips pieces in between if the move is valid.
@@ -147,18 +158,22 @@ class MainHandler(webapp2.RequestHandler):
 				move = self.choose(g)
 			self.response.write(prettyMove(move))
 
-	def choose(self, g):
+	def choose(self, game):
 		player = {}
-		for move in g.validMoves():
-			nextBoard = g.nextBoardPosition(move)
-			score = self.heuristicScore(g, nextBoard)
+		for move in game.validMoves():
+			nextBoard = game.nextBoardPosition(move)
+			score = self.heuristicScore(game, nextBoard)
 			player[score] = move
 
 		best = max(player)
 		return player[best]
 
 
-	def heuristicScore(self, g, board):
+	def heuristicScore(self, game, board):
+		score = self.coinParity(board) + self.corner(board) + self.mobility(game)
+		return score
+
+	def coinParity(self, board):
 		player = g.next()
 		opponent = 3 - player
 		player_score = 0
@@ -171,9 +186,9 @@ class MainHandler(webapp2.RequestHandler):
 					opponent_score += 1
 				else:
 					continue
-		return player_score
+		return player_score - opponent_score
 
-	def coinParity(self, board):
+	def corner(self, board):
 		player = g.next()
 		opponent = 3 - player
 		player_score = 0
@@ -196,11 +211,72 @@ class MainHandler(webapp2.RequestHandler):
 			player_score += 1
 		elif board[7][7] == opponent:
 			opponent_score += 1
-		corner = 25 * (player_score - opponent_score)
+		score = player_score - opponent_score
 
 		# Corner neighber
-		mine = 0
-		opponent = 0
+		player_score = 0
+		opponent_score = 0
+		if board[0][0] == 0:
+			if board[0][1] == player:
+				player_score += 1
+			elif board[0][1] == opponent:
+				opponent_score += 1
+			if board[1][1] == player:
+				player_score += 1
+			elif board[1][1] == opponent:
+				opponent_score += 1
+			if board[1][0] == player:
+				player_score += 1
+			elif board[1][0] == opponent:
+				opponent_score += 1
+		if board[0][7] == 0:
+			if board[0][6] == player:
+				player_score += 1
+			elif board[0][6] == opponent:
+				opponent_score += 1
+			if board[1][6] == player:
+				player_score += 1
+			elif board[1][6] == opponent:
+				opponent_score += 1
+			if board[1][7] == player:
+				player_score += 1
+			elif board[1][7] == opponent:
+				opponent_score += 1
+		if board[7][0] == 0:
+			if board[7][1] == player:
+				player_score += 1
+			elif board[7][1] == opponent:
+				opponent_score += 1
+			if board[6][1] == player:
+				player_score += 1
+			elif board[6][1] == opponent:
+				opponent_score += 1
+			if board[6][0] == player:
+				player_score += 1
+			elif board[6][0] == opponent:
+				opponent_score += 1
+		if board[7][7] == 0:
+			if board[6][7] == player:
+				player_score += 1
+			elif board[6][7] == opponent:
+				opponent_score += 1
+			if board[6][6] == player:
+				player_score += 1
+			elif board[6][6] == opponent:
+				opponent_score += 1
+			if board[7][6] == player:
+				player_score += 1
+			elif board[7][6] == opponent:
+				opponent_score += 1
+		score_neighbor = player_score - opponent_score
+
+		return 20*score + 10*score_neighbor
+
+	def mobility(self, game):
+		player_score = len(game.validMoves())
+		opponent_score = len(game.validMoves_opponent())
+		return 2*(player_score - opponent_score)
+
 
 
 app = webapp2.WSGIApplication([
