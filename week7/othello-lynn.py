@@ -186,7 +186,7 @@ class MainHandler(webapp2.RequestHandler):
 					opponent_score += 1
 				else:
 					continue
-		return player_score - opponent_score
+		return (player_score-opponent_score)/(player_score+opponent_score)
 
 	def corner(self, board):
 		player = g.next()
@@ -211,7 +211,7 @@ class MainHandler(webapp2.RequestHandler):
 			player_score += 1
 		elif board[7][7] == opponent:
 			opponent_score += 1
-		score = player_score - opponent_score
+		score = (player_score-opponent_score)/(player_score+opponent_score)
 
 		# Corner neighber
 		player_score = 0
@@ -268,14 +268,14 @@ class MainHandler(webapp2.RequestHandler):
 				player_score += 1
 			elif board[7][6] == opponent:
 				opponent_score += 1
-		score_neighbor = player_score - opponent_score
+		score_neighbor = (player_score-opponent_score)/(player_score+opponent_score)
 
-		return 20*score + 10*score_neighbor
+		return 20 * score + 10 * score_neighbor
 
 	def mobility(self, game):
 		player_score = len(game.validMoves())
 		opponent_score = len(game.validMoves_opponent())
-		return 2*(player_score - opponent_score)
+		return 2*(player_score-opponent_score)/(player_score+opponent_score)
 
 
 
