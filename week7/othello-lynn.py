@@ -152,25 +152,28 @@ class MainHandler(webapp2.RequestHandler):
 		if len(valid_moves) == 0:
 			self.response.write("PASS")
 		else:
-			if g.pieceNum() < 16:
-				move = random.choice(valid_moves) # pick randomly
+			if g.pieceNum() < 16: # move randomly in opening
+				move = random.choice(valid_moves)
 			else:
 				move = self.choose(g)
 			self.response.write(prettyMove(move))
 
 	def choose(self, game):
-		player = {}
+		evaluate = {}
 		for move in game.validMoves():
 			nextBoard = game.nextBoardPosition(move)
 			score = self.heuristicScore(game, nextBoard)
-			player[score] = move
+			evaluate[score] = move
 
-		best = max(player)
-		return player[best]
+		best = max(evaluate)
+		return evaluate[best]
 
 
 	def heuristicScore(self, game, board):
-		score = self.coinParity(board) + self.corner(board) + self.mobility(game)
+		if game.pieceNum() == 62:
+			score = self.coinParity(board)
+		else:
+			score = self.coinParity(board) + self.corner(board) + self.mobility(game)
 		return score
 
 	def coinParity(self, board):
