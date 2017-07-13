@@ -168,7 +168,6 @@ class MainHandler(webapp2.RequestHandler):
 		best = max(evaluate)
 		return evaluate[best]
 
-
 	def heuristicScore(self, game, board):
 		if game.pieceNum() == 62:
 			score = self.coinParity(board)
@@ -278,7 +277,7 @@ class MainHandler(webapp2.RequestHandler):
 	def mobility(self, game):
 		player_score = len(game.validMoves())
 		opponent_score = len(game.validMoves_opponent())
-		return 2*(player_score-opponent_score)/(player_score+opponent_score)
+		return 5*(player_score-opponent_score)/(player_score+opponent_score)
 
 
 
