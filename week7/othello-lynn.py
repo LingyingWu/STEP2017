@@ -168,16 +168,9 @@ class MainHandler(webapp2.RequestHandler):
 		best = max(evaluate)
 		return evaluate[best]
 
-	def minmax(self, game, board, depth):
-		if depth < 1:
-			return heuristicScore(game, board)
-
-		player = game.next()
-
-
 	def heuristicScore(self, game, board):
 		next_player = game.next()
-		if game.pieceNum() >= 62: # last one move
+		if game.pieceNum() == 63: # last move
 			score = self.coinParity(board)
 		else:
 			score = self.coinParity(board, next_player) + self.corner(board, next_player) + self.mobility(game)
