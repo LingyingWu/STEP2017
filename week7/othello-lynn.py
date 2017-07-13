@@ -168,15 +168,23 @@ class MainHandler(webapp2.RequestHandler):
 		best = max(evaluate)
 		return evaluate[best]
 
+	def minmax(self, game, board, depth):
+		if depth < 1:
+			return heuristicScore(game, board)
+
+		player = game.next()
+
+
 	def heuristicScore(self, game, board):
+		next_player = game.next()
 		if game.pieceNum() == 62:
 			score = self.coinParity(board)
 		else:
-			score = self.coinParity(board) + self.corner(board) + self.mobility(game)
+			score = self.coinParity(board, next_player) + self.corner(board, next_player) + self.mobility(game)
 		return score
 
-	def coinParity(self, board):
-		player = g.next()
+	def coinParity(self, board, next_player):
+		player = next_player
 		opponent = 3 - player
 		player_score = 0
 		opponent_score = 0
@@ -190,8 +198,8 @@ class MainHandler(webapp2.RequestHandler):
 					continue
 		return (player_score-opponent_score)/(player_score+opponent_score)
 
-	def corner(self, board):
-		player = g.next()
+	def corner(self, board, next_player):
+		player = next_player
 		opponent = 3 - player
 		player_score = 0
 		opponent_score = 0
